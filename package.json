@@ -1,14 +1,22 @@
 {
   "name": "novelreader-nodejs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "This is a backend engine for novelreader mobile application",
   "author": "Praveen Prabhakar",
   "license": "MIT",
   "keywords": [
     "novelreader",
     "nodejs",
-    "backend"
+    "backend",
+    "https://novelreader-online.herokuapp.com"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppraveentr/NovelReader_nodejs"
+  },
+  "engines": {
+    "node": "8.9.1"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
