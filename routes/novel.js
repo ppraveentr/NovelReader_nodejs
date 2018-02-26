@@ -19,7 +19,7 @@ router.get('/list', function(req, res) {
         page: req.query.page
     };
 
-    utility.filter_novel(options, function(resp){
+    utility.fetchNovelList(options, function(resp){
         res.send(resp);
         res.end();
     });

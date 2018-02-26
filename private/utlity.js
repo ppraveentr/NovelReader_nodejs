@@ -1,5 +1,6 @@
 var request = require('request');
 var domParser = require('cheerio');
+// var fs = require('fs');
 
 var baseNovelURL = 'http://novelonlinefree.com/';
 var novel_list = baseNovelURL + 'novel_list?';
@@ -14,7 +15,7 @@ var searchRequest = request.defaults({
     }
 });
 
-var listRequest = request.defaults({
+var novelListRequest = request.defaults({
     url: novel_list,
     method : 'GET',
     headers: {
@@ -32,50 +33,133 @@ var nutility = {};
 //http://novelonlinefree.com/novel_list?type=latest&category=all&state=ongoing&page=1
 
 //Filter Novel
-function filterFormData(options) {
-    var str = 'type=' + options.type + '&';
-    str = str + 'category=' + options.category + '&';
-    str = str + 'state=' + options.state + '&';
-    str = str + 'page=' + options.page;
+function generateNovelListURI(options) {
+
+    var str = 'type=';
+    str += (options.type === undefined || options.type === null) ? 'topview' : options.type;
+
+    str.concat('&category=');
+    str += (options.category === undefined || options.category === null) ? 'all' : options.category;
+
+    str.concat('&state=');
+    str += (options.state === undefined || options.state === null) ? 'all' : options.state;
+
+    str.concat('&page=');
+    str += (options.page === undefined || options.page === null) ? '1' : options.page;
+
     return str;
 }
 
 function parseNovelList(html) {
 
-    // var dom = domParser.load(html, {
-    //     ignoreWhitespace: true,
-    //     xmlMode: true
-    // });
-
-    var $ = domParser.load(html);
-
-    var $fruits = $('#main_body div').each(function(i, elem) {
-        var element = $(this);
-        console.log(element)
+    const $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true
     });
 
+    var novels = [];
 
-    var objefcts = $fruits.filter('#update_item list_category')
-    console.log(objefcts);
+    $('div.update_item').each(function(i, result) {
 
-    // $('div.wrap_update').each(function(i, element){
-    //     $(this).children.filter()
-    //     var a = $(this).text();
-    //     console.log(a);
-    // });
+        var object = {
+            title: $(result).attr('title'),
+            url: '',
+            imageURL: '',
+            lastChapter: [],
+            lastUpdated: '',
+            lastViewed: ''
+        };
 
-    return html
+        function updateNovelURL(element) {
+            if (object.title === null || object.title === undefined) {
+                object.title = $(element).attr('title');
+            }
+            object.url = $(element).attr('href');
+
+            $(element).children().filter(function(i, el){
+                if ($(el).attr('src') != null) {
+                    object.imageURL = $(el).attr('src');
+                }
+            });
+        }
+
+        function updateChapter(element) {
+
+            var chapter = {
+                title: $(element).attr('title'),
+                url: $(element).attr('href')
+            };
+
+            if (object.title != null && chapter.title != null) {
+                chapter.title = chapter.title.replace(object.title + " ", '')
+            }
+
+            object.lastChapter.push(chapter);
+        }
+
+        $(result).children().filter(function(i, el) {
+
+            if ($(el).attr('rel') === 'nofollow') {
+                updateNovelURL(el);
+            }
+            else if ($(el).attr('class') === 'chapter') {
+                updateChapter(el);
+            }
+            else {
+
+                var text = $(this).text().toString();
+
+                if (text.indexOf('Last updated :', 0) === 0) {
+                    object.lastUpdated = text
+                }
+                else if (text.indexOf('View :', 0) === 0) {
+                    object.lastViewed = text
+                }
+            }
+
+            return el;
+        });
+
+        novels.push(object);
+    });
+
+    return novels;
 }
 
-nutility.filter_novel = function (opt, next) {
+nutility.fetchNovelList = function (opt, next) {
 
-    var url = novel_list + filterFormData(opt);
+    // fs.readFile('./private/demopages/Novellist.html', 'utf8', function (err,data) {
+    //
+    //     if (err) {
+    //         console.log(err);
+    //         next( { error: 'Not able to find the keyword' } );
+    //     }
+    //
+    //     var novelList = parseNovelList(data);
+    //
+    //     if (novelList.length == 0) {
+    //         next( { error: 'Not able to find the keyword' } );
+    //     }
+    //     else {
+    //         next(novelList);
+    //     }
+    // });
 
-    searchRequest.get({url: url}, function (error, response, body) {
+    var url = novel_list + generateNovelListURI(opt);
+
+    novelListRequest.get({url: url}, function (error, response, body) {
 
         if (!error && response.statusCode == 200) {
-            var jsonnValue = parseNovelList(body);
-            next(jsonnValue);
+
+            var novelList = parseNovelList(body);
+
+            if (novelList.length == 0) {
+                next( { error: 'Not able to find the keyword' } );
+            }
+            else {
+                next(novelList);
+            }
+
         }else{
             next( { error: 'Not able to find the keyword' } );
         }
@@ -83,7 +167,7 @@ nutility.filter_novel = function (opt, next) {
 };
 
 //Search Novel
-nutility.nomalize_searchString = function (alias)
+nutility.normalize_searchString = function (alias)
 {
     var str = alias;
     str = str.toLowerCase();
@@ -103,7 +187,7 @@ nutility.nomalize_searchString = function (alias)
 };
 
 function searchFormData(q) {
-    var  searchKeyword = nutility.nomalize_searchString(q);
+    var  searchKeyword = nutility.normalize_searchString(q);
     return 'searchword=' + searchKeyword;
 }
 
