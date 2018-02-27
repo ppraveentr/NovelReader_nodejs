@@ -52,23 +52,23 @@ function parseNovelList(html) {
     $('div.update_item').each(function(i, result) {
 
         var object = {
-            title: $(result).attr('title'),
+            name: $(result).attr('title'),
             url: '',
-            imageURL: '',
+            image: '',
             lastChapter: [],
-            lastUpdated: '',
-            lastViewed: ''
+            updatetime: '',
+            view: ''
         };
 
         function updateNovelURL(element) {
-            if (object.title === null || object.title === undefined) {
-                object.title = $(element).attr('title');
+            if (object.name === null || object.name === undefined) {
+                object.name = $(element).attr('title');
             }
             object.url = $(element).attr('href');
 
             $(element).children().filter(function(i, el){
                 if ($(el).attr('src') !== null) {
-                    object.imageURL = $(el).attr('src');
+                    object.image = $(el).attr('src');
                 }
             });
         }
@@ -76,12 +76,12 @@ function parseNovelList(html) {
         function updateChapter(element) {
 
             var chapter = {
-                title: $(element).attr('title'),
+                name: $(element).attr('title'),
                 url: $(element).attr('href')
             };
 
-            if (object.title !== null && chapter.title !== null) {
-                chapter.title = chapter.title.replace(object.title + " ", '')
+            if (object.name !== null && chapter.name !== null) {
+                chapter.name = chapter.name.replace(object.name + " ", '')
             }
 
             object.lastChapter.push(chapter);
@@ -100,10 +100,10 @@ function parseNovelList(html) {
                 var text = $(this).text().toString();
 
                 if (text.indexOf('Last updated :', 0) === 0) {
-                    object.lastUpdated = text
+                    object.updatetime = text
                 }
                 else if (text.indexOf('View :', 0) === 0) {
-                    object.lastViewed = text
+                    object.view = text
                 }
             }
 
