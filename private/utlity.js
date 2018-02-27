@@ -5,18 +5,9 @@ var domParser = require('cheerio');
 var baseNovelURL = 'http://novelonlinefree.com/';
 var novel_list = baseNovelURL + 'novel_list?';
 var novel_search = baseNovelURL + 'getsearchstory?';
-
-var searchRequest = request.defaults({
-    url: baseNovelURL + 'getsearchstory',
-    method : 'GET',
-    headers: {
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
-    }
-});
+var recentUpdates = baseNovelURL + 'json_tooltips_home';
 
 var novelListRequest = request.defaults({
-    url: novel_list,
     method : 'GET',
     headers: {
         'content-type': 'text/html',
@@ -27,10 +18,9 @@ var novelListRequest = request.defaults({
 var nutility = {};
 
 //http://novelonlinefree.com/novel_list?type=topview&category=all&state=all&page=1
-//http://novelonlinefree.com/novel_list?type=latest&category=all&state=all&page=1
-//http://novelonlinefree.com/novel_list?type=newest&category=all&state=all&page=1
-//http://novelonlinefree.com/novel_list?type=latest&category=all&state=completed&page=1
-//http://novelonlinefree.com/novel_list?type=latest&category=all&state=ongoing&page=1
+//type= latest | newest | topview
+//state= ongoing | completed | all
+//category= all
 
 //Filter Novel
 function generateNovelListURI(options) {
@@ -52,7 +42,7 @@ function generateNovelListURI(options) {
 
 function parseNovelList(html) {
 
-    const $ = domParser.load(html, {
+    var $ = domParser.load(html, {
         ignoreWhitespace: true,
         xmlMode: true
     });
@@ -77,7 +67,7 @@ function parseNovelList(html) {
             object.url = $(element).attr('href');
 
             $(element).children().filter(function(i, el){
-                if ($(el).attr('src') != null) {
+                if ($(el).attr('src') !== null) {
                     object.imageURL = $(el).attr('src');
                 }
             });
@@ -90,7 +80,7 @@ function parseNovelList(html) {
                 url: $(element).attr('href')
             };
 
-            if (object.title != null && chapter.title != null) {
+            if (object.title !== null && chapter.title !== null) {
                 chapter.title = chapter.title.replace(object.title + " ", '')
             }
 
@@ -126,34 +116,37 @@ function parseNovelList(html) {
     return novels;
 }
 
-nutility.fetchNovelList = function (opt, next) {
+// nutility.mockFetchNovelList = function (next) {
+//
+//     fs.readFile('./private/demopages/Novellist.html', 'utf8', function (err,data) {
+//
+//         if (err) {
+//             console.log(err);
+//             next( { error: 'Not able to find the keyword' } );
+//         }
+//
+//         var novelList = parseNovelList(data);
+//
+//         if (novelList.length == 0) {
+//             next( { error: 'Not able to find the keyword' } );
+//         }
+//         else {
+//             next(novelList);
+//         }
+//     });
+// };
 
-    // fs.readFile('./private/demopages/Novellist.html', 'utf8', function (err,data) {
-    //
-    //     if (err) {
-    //         console.log(err);
-    //         next( { error: 'Not able to find the keyword' } );
-    //     }
-    //
-    //     var novelList = parseNovelList(data);
-    //
-    //     if (novelList.length == 0) {
-    //         next( { error: 'Not able to find the keyword' } );
-    //     }
-    //     else {
-    //         next(novelList);
-    //     }
-    // });
+nutility.fetchNovelList = function (options, next) {
 
-    var url = novel_list + generateNovelListURI(opt);
+    var url = novel_list + generateNovelListURI(options);
 
     novelListRequest.get({url: url}, function (error, response, body) {
 
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
 
             var novelList = parseNovelList(body);
 
-            if (novelList.length == 0) {
+            if (novelList.length === 0) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
@@ -167,37 +160,49 @@ nutility.fetchNovelList = function (opt, next) {
 };
 
 //Search Novel
-nutility.normalize_searchString = function (alias)
-{
+nutility.normalize_searchString = function (alias) {
     var str = alias;
     str = str.toLowerCase();
-    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, "a");
+    str = str.replace(/[èéẹẻẽêềếệểễ]/g, "e");
+    str = str.replace(/[ìíịỉĩ]/g, "i");
+    str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, "o");
+    str = str.replace(/[ùúụủũưừứựửữ]/g, "u");
+    str = str.replace(/[ỳýỵỷỹ]/g, "y");
     str = str.replace(/đ/g, "d");
-    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|-|$|_/g, "_");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|-|$|_/g, "_");
     /* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
     str = str.replace(/_+_/g, "_"); //thay thế 2_ thành 1_
-    str = str.replace(/^\_+|\_+$/g, "");
+    str = str.replace(/^_+|_+$/g, "");
     //cắt bỏ ký tự _ ở đầu và cuối chuỗi
     return str;
 };
 
-function searchFormData(q) {
+function generateSearchURI(q) {
     var  searchKeyword = nutility.normalize_searchString(q);
     return 'searchword=' + searchKeyword;
 }
 
 nutility.search_novel = function (q, next) {
 
-    var url = novel_search + searchFormData(q);
+    var url = novel_search + generateSearchURI(q);
 
-    searchRequest.get({url: url}, function (error, response, body) {
+    novelListRequest.get({url: url}, function (error, response, body) {
 
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
+            next(body);
+        }else{
+            next( { error: 'Not able to find the keyword' } );
+        }
+    });
+};
+
+//Latest Updates
+nutility.fetchRecentUpdates = function (next) {
+
+    novelListRequest.get({url: recentUpdates}, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
             next(body);
         }else{
             next( { error: 'Not able to find the keyword' } );

@@ -1,7 +1,7 @@
 {
   "name": "novelreader-nodejs",
   "version": "0.1.0",
-  "description": "This is a backend engine for novelreader mobile application",
+  "description": "This is a backend engine for novelreader mobile application. This is purerly for self learning.",
   "author": "Praveen Prabhakar",
   "license": "MIT",
   "keywords": [
