@@ -28,13 +28,13 @@ function generateNovelListURI(options) {
     var str = 'type=';
     str += (options.type === undefined || options.type === null) ? 'topview' : options.type;
 
-    str.concat('&category=');
+    str += '&category=';
     str += (options.category === undefined || options.category === null) ? 'all' : options.category;
 
-    str.concat('&state=');
+    str += '&state=';
     str += (options.state === undefined || options.state === null) ? 'all' : options.state;
 
-    str.concat('&page=');
+    str += '&page=';
     str += (options.page === undefined || options.page === null) ? '1' : options.page;
 
     return str;
