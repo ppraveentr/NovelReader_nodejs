@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var novelList = require('./routes/novel');
+//var novelList = require('./routes/novel');
+var novelList = require('./routes/onlinenovel');
 
 var app = express();
 
