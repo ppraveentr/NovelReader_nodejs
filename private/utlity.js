@@ -1,4 +1,4 @@
-var nrUtility = require("novelReaderParserUtility");
+var nrUtility = require('../private/novelReaderParserUtility');
 
 var novelListRequest = nrUtility.nr_novelListRequest;
 
