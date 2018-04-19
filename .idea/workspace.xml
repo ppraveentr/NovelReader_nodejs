@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51337fbe-e83d-4e0b-af45-c67dbc5b888a" name="Default" comment="Commented un-used dependencies">
+    <list default="true" id="51337fbe-e83d-4e0b-af45-c67dbc5b888a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/private/novelReaderParserUtility.js" afterPath="$PROJECT_DIR$/private/novelReaderParserUtility.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/private/onlineNovelUtility.js" afterPath="$PROJECT_DIR$/private/onlineNovelUtility.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -389,7 +385,7 @@
       <workItem from="1523980584202" duration="9052000" />
       <workItem from="1524020235187" duration="4342000" />
       <workItem from="1524025175265" duration="317000" />
-      <workItem from="1524143593462" duration="2666000" />
+      <workItem from="1524143593462" duration="2677000" />
     </task>
     <task id="LOCAL-00001" summary="Added:route: novel_list">
       <created>1519495925833</created>
@@ -447,11 +443,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524023840172</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Commented un-used dependencies">
+      <created>1524146770416</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1524146770418</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69898000" />
+    <option name="totallyTimeSpent" value="69909000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
