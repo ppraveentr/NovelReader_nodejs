@@ -6,8 +6,6 @@
   "license": "MIT",
   "keywords": [
     "novelreader",
-    "nodejs",
-    "backend",
     "https://novelreader-online.herokuapp.com"
   ],
   "repository": {
@@ -27,9 +25,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
-    "jade": "~1.11.0",
     "morgan": "~1.9.0",
-    "request": "^2.83.0",
-    "serve-favicon": "~2.4.5"
+    "request": "^2.83.0"
   }
 }

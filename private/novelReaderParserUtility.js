@@ -7,7 +7,7 @@ var nrUtility = {};
 //Is running in Debug mode
 nrUtility.isDebugMode = function () {
     return typeof v8debug === 'object';
-}
+};
 
 //Novel reader, default 'request'
 nrUtility.nr_novelListRequest = request.defaults({
@@ -37,8 +37,7 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
                 createNovelElement(el, obj);
             }
             else if ($(el).attr('class') === 'pop-header') {
-                var text = $(this).text().toString();
-                obj.name = text;
+                obj.name = $(this).text().toString();
             }
             //For cover image
             else if ($(el).attr('class') === 'pop-container') {
@@ -58,8 +57,7 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
             }
             //For cover image
             else if ($(el).attr('class') === 'pop-summary') {
-                var text = $(this).text().toString().trimLeft().trimRight();
-                obj.summary = text;
+                obj.summary = $(this).text().toString().trimLeft().trimRight();
             }
             //For cover image
             else if ($(el).attr('class') === 'pop-rating') {
@@ -77,14 +75,14 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
             }
             //For Views count
             else if ($(el).attr('class') === 'pop-genres') {
-                var text = $(this).text().toString();
-                text = text.replace("Views:", "").trim();
-                obj.views = text;
+                var genres = $(this).text().toString();
+                genres = genres.replace("Views:", "").trim();
+                obj.views = genres;
             }
 
             return el;
         });
-    };
+    }
 
     $('div.list-by-word-body').each(function(i, ulResult) {
 
@@ -136,7 +134,7 @@ nrUtility.mock_OnlineNovelReaderList = function (next) {
 
         var novelListPage = nrUtility.parse_OnlineNovelReaderList(data);
 
-        if (novelListPage.length == 0) {
+        if (novelListPage.length === 0) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
@@ -232,7 +230,7 @@ nrUtility.mock_NovelOnlineFreeList = function (next) {
 
         var novelList = nrUtility.parse_NovelOnlineFreeList(data);
 
-        if (novelList.length == 0) {
+        if (novelList.length === 0) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
