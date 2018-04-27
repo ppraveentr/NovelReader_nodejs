@@ -4,6 +4,23 @@ var fs = require('fs');
 
 var nrUtility = {};
 
+nrUtility.novelObject = function () {
+    /*this.name = '';
+    this.author = '';
+    this.artist = '';
+    this.status = '';
+    this.type = '';
+    this.url = '';
+    this.summary = '';
+    this.image = '';
+    this.rating = '';
+    this.lastUpdate = '';
+    this.genres = '';
+    this.views = '';
+    */
+};
+
+
 //Is running in Debug mode
 nrUtility.isDebugMode = function () {
     return typeof v8debug === 'object';
@@ -19,6 +36,7 @@ nrUtility.nr_novelListRequest = request.defaults({
 });
 
 //URL: http://onlinenovelreader.com
+//All avaialble novels
 nrUtility.parse_OnlineNovelReaderList = function (html) {
 
     var $ = domParser.load(html, {
@@ -90,15 +108,7 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
 
             $(liResult).children().filter(function(i, obj) {
 
-                var object = {
-                    name: '',
-                    url: '',
-                    summary: '',
-                    image: '',
-                    rating: '',
-                    genres: '',
-                    views: ''
-                };
+                var object = new nrUtility.novelObject();
 
                 $(obj).children().filter(function(i, el) {
 
@@ -142,7 +152,113 @@ nrUtility.mock_OnlineNovelReaderList = function (next) {
         }
     });
 };
+//Top NovelList
+nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
 
+    var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+    var novels = [];
+
+    $('div.top-novel-block').each(function (i, novelElement) {
+
+        $(novelElement).children().filter(function(i, liResult) {
+
+            if ($(liResult).hasClass('top-novel-header')) {
+                    console.log($(liResult));
+            }
+            else if ($(liResult).hasClass('top-novel-content')) {
+                console.log($(liResult));
+            }
+        });
+    });
+
+    return novels;
+};
+nrUtility.mock_OnlineNovelReader_topNovelList = function (next) {
+
+    fs.readFile('./private/demopages/onlinenovelreader_topNovel.html', 'utf8', function (err,data) {
+
+        if (err) {
+            debug(err);
+            next( { error: 'Not able to find the keyword' } );
+        }
+
+        var novelListPage = nrUtility.parse_OnlineNovelReader_topNovelList(data);
+
+        if (novelListPage.length === 0) {
+            next( { error: 'Not able to find the keyword' } );
+        }
+        else {
+            next(novelListPage);
+        }
+    });
+};
+//Latest NovelList
+nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
+
+    var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+    var novels = [];
+
+    $('div.list-by-word-body').each(function (i, novelElement) {
+
+        $(novelElement).children().filter(function(i, liResult) {
+
+            $(liResult).children().filter(function(i, obj) {
+
+                var object = new nrUtility.novelObject();
+
+                $(obj).children().filter(function(i, novel) {
+
+                    var hrefValue = $(novel).attr('href');
+                    if (hrefValue) {
+                        object.url = hrefValue;
+                        object.name = $(this).text().toString();
+                    }
+                    else if ($(this).hasClass('list_chapter_date')) {
+                        object.lastUpdate = $(this).text().toString();
+                    }
+                });
+
+                if (object.hasOwnProperty('url') && object.url.length > 0) {
+                    novels.push(object);
+                }
+            });
+        });
+    });
+
+    return novels;
+};
+nrUtility.mock_OnlineNovelReader_recentNovelList = function (next) {
+
+    fs.readFile('./private/demopages/onlinenovelreader_recentList.html', 'utf8', function (err,data) {
+
+        if (err) {
+            debug(err);
+            next( { error: 'Not able to find the keyword' } );
+        }
+
+        var novelListPage = nrUtility.parse_OnlineNovelReader_recentNovelList(data);
+
+        if (novelListPage.length === 0) {
+            next( { error: 'Not able to find the keyword' } );
+        }
+        else {
+            next(novelListPage);
+        }
+    });
+};
+
+/*
+//UNUSED
 //URL: http://novelonlinefree.info
 nrUtility.parse_NovelOnlineFreeList = function (html) {
 
@@ -238,7 +354,7 @@ nrUtility.mock_NovelOnlineFreeList = function (next) {
         }
     });
 };
-
+*/
 //Search Novel
 nrUtility.normalize_searchString = function (alias) {
     var str = alias;
