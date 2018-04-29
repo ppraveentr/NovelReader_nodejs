@@ -605,7 +605,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/yargs/lib/validation.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/yargs/package.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
@@ -626,7 +625,7 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="0">
               <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
               <folding />
             </state>
@@ -636,18 +635,8 @@
       <file leaf-file-name="onlinenovel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="novel.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/novel.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+            <state relative-caret-position="467">
+              <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -656,11 +645,9 @@
       <file leaf-file-name="onlineNovelUtility.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-              <folding>
-                <marker date="1525003122185" expanded="true" signature="220:230" ph="..." />
-              </folding>
+            <state relative-caret-position="-231">
+              <caret line="87" column="5" lean-forward="true" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -668,18 +655,22 @@
       <file leaf-file-name="novelReaderParserUtility.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private/novelReaderParserUtility.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="290" column="55" lean-forward="false" selection-start-line="290" selection-start-column="55" selection-end-line="290" selection-end-column="55" />
+            <state relative-caret-position="367">
+              <caret line="321" column="51" lean-forward="true" selection-start-line="321" selection-start-column="51" selection-end-line="321" selection-end-column="51" />
               <folding>
-                <element signature="e#724#947#0" expanded="false" />
-                <element signature="e#5907#6985#0" expanded="false" />
-                <element signature="e#7054#7546#0" expanded="false" />
-                <element signature="e#9374#9871#0" expanded="false" />
-                <element signature="e#9944#10722#0" expanded="false" />
-                <element signature="e#10783#11264#0" expanded="false" />
-                <element signature="e#13841#14535#0" expanded="false" />
-                <marker date="1525003382938" expanded="false" signature="11368:13267" ph="{...}" />
-                <marker date="1525003382938" expanded="false" signature="13322:13769" ph="{...}" />
+                <element signature="e#483#840#0" expanded="false" />
+                <element signature="e#1285#1508#0" expanded="false" />
+                <element signature="e#1830#3852#0" expanded="false" />
+                <element signature="e#3912#4635#0" expanded="false" />
+                <element signature="e#5920#6407#0" expanded="false" />
+                <element signature="e#6497#7604#0" expanded="false" />
+                <element signature="e#7673#8165#0" expanded="false" />
+                <element signature="e#10008#10505#0" expanded="false" />
+                <element signature="e#10578#11356#0" expanded="false" />
+                <element signature="e#11417#11898#0" expanded="false" />
+                <element signature="e#14482#15176#0" expanded="false" />
+                <marker date="1525016077301" expanded="true" signature="12002:13908" ph="{...}" />
+                <marker date="1525016077301" expanded="false" signature="13963:14410" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -697,15 +688,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>novelList</find>
-      <find>domParser</find>
-      <find>novelReaderParserUtility</find>
-      <find>consol</find>
-      <find>cac</find>
-      <find>jade</find>
-      <find>logger</find>
-      <find>serve</find>
-      <find>morgan</find>
       <find>path</find>
       <find>favicon</find>
       <find>favicon.ico</find>
@@ -723,10 +705,19 @@
       <find>top-list</find>
       <find>/chapter</find>
       <find>&quot;src&quot;</find>
-      <find>parse_OnlineNovelReaderList</find>
       <find>genres</find>
-      <find>on_fetchNovelList</find>
       <find>type</find>
+      <find>on_topList</find>
+      <find>martial-god-asura</find>
+      <find>hrefValue</find>
+      <find>object.url = hrefValue</find>
+      <find>parse_OnlineNovelReaderList</find>
+      <find>on_fetchNovelList</find>
+      <find>OnlineNovelReaderList</find>
+      <find>http://onlinenovelreader.com/jun-jiuling/chapter-1</find>
+      <find>object.url = encode(hrefValue);</find>
+      <find>t.url</find>
+      <find>.url</find>
     </findStrings>
     <replaceStrings>
       <replace>= '';</replace>
@@ -762,7 +753,6 @@
         <option value="vm:391" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="vm:879" />
-        <option value="vm:676" />
         <option value="vm:760" />
         <option value="vm:672" />
         <option value="vm:701" />
@@ -781,19 +771,20 @@
         <option value="vm:681" />
         <option value="vm:695" />
         <option value="vm:682" />
-        <option value="$PROJECT_DIR$/private/onlineNovelUtility.js" />
         <option value="vm:684" />
         <option value="vm:685" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="vm:677" />
         <option value="vm:705" />
         <option value="vm:690" />
         <option value="vm:691" />
         <option value="vm:715" />
-        <option value="$PROJECT_DIR$/routes/onlinenovel.js" />
         <option value="vm:728" />
         <option value="vm:719" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/routes/onlinenovel.js" />
+        <option value="$PROJECT_DIR$/private/onlineNovelUtility.js" />
+        <option value="vm:676" />
         <option value="$PROJECT_DIR$/private/novelReaderParserUtility.js" />
       </list>
     </option>
@@ -831,9 +822,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -866,7 +858,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1015,7 +1006,8 @@
       <workItem from="1524842440918" duration="5138000" />
       <workItem from="1524896110971" duration="1324000" />
       <workItem from="1524938995040" duration="8878000" />
-      <workItem from="1524989047408" duration="3592000" />
+      <workItem from="1524989047408" duration="3898000" />
+      <workItem from="1525010560764" duration="5238000" />
     </task>
     <task id="LOCAL-00001" summary="Added:route: novel_list">
       <created>1519495925833</created>
@@ -1094,11 +1086,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524848241756</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated parser for mock : Chapter and ChapterList. &#10;Yet to make it work for actual data.">
+      <created>1525003457737</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1525003457737</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96948000" />
+    <option name="totallyTimeSpent" value="102492000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1110,7 +1109,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="23" width="1636" height="1027" extended-state="6" />
+    <frame x="44" y="24" width="1636" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1121,22 +1120,22 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2973822" sideWeight="0.502445" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2121027" sideWeight="0.5036649" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2121027" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2121027" sideWeight="0.4963351" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3225131" sideWeight="0.49755502" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32670158" sideWeight="0.49755502" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1177,16 +1176,23 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="javascript">
-          <url>file://$PROJECT_DIR$/private/utlity.js</url>
-          <line>19</line>
-          <option name="timeStamp" value="101" />
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/routes/onlinenovel.js</url>
+          <line>38</line>
+          <properties />
+          <option name="timeStamp" value="221" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/private/onlineNovelUtility.js</url>
+          <line>84</line>
+          <properties />
+          <option name="timeStamp" value="225" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="218" />
+      <option name="time" value="226" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1492,70 +1498,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+        <state relative-caret-position="0">
+          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/novel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        <state relative-caret-position="420">
+          <caret line="28" column="10" lean-forward="false" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_chapter.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="271">
+          <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-          <folding>
-            <marker date="1525003122185" expanded="true" signature="220:230" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+        <state relative-caret-position="-231">
+          <caret line="87" column="5" lean-forward="true" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/private/novelReaderParserUtility.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="290" column="55" lean-forward="false" selection-start-line="290" selection-start-column="55" selection-end-line="290" selection-end-column="55" />
+        <state relative-caret-position="367">
+          <caret line="321" column="51" lean-forward="true" selection-start-line="321" selection-start-column="51" selection-end-line="321" selection-end-column="51" />
           <folding>
-            <element signature="e#724#947#0" expanded="false" />
-            <element signature="e#5907#6985#0" expanded="false" />
-            <element signature="e#7054#7546#0" expanded="false" />
-            <element signature="e#9374#9871#0" expanded="false" />
-            <element signature="e#9944#10722#0" expanded="false" />
-            <element signature="e#10783#11264#0" expanded="false" />
-            <element signature="e#13841#14535#0" expanded="false" />
-            <marker date="1525003382938" expanded="false" signature="11368:13267" ph="{...}" />
-            <marker date="1525003382938" expanded="false" signature="13322:13769" ph="{...}" />
+            <element signature="e#483#840#0" expanded="false" />
+            <element signature="e#1285#1508#0" expanded="false" />
+            <element signature="e#1830#3852#0" expanded="false" />
+            <element signature="e#3912#4635#0" expanded="false" />
+            <element signature="e#5920#6407#0" expanded="false" />
+            <element signature="e#6497#7604#0" expanded="false" />
+            <element signature="e#7673#8165#0" expanded="false" />
+            <element signature="e#10008#10505#0" expanded="false" />
+            <element signature="e#10578#11356#0" expanded="false" />
+            <element signature="e#11417#11898#0" expanded="false" />
+            <element signature="e#14482#15176#0" expanded="false" />
+            <marker date="1525016077301" expanded="true" signature="12002:13908" ph="{...}" />
+            <marker date="1525016077301" expanded="false" signature="13963:14410" ph="{...}" />
           </folding>
         </state>
       </provider>

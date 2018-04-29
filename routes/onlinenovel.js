@@ -23,7 +23,7 @@ router.get('/recentupdates', function(req, res) {
 });
 
 /* GET novel/top-list listing. */
-router.get('/top-list', cache('5 minutes') ,function(req, res) {
+router.get('/top-list/:page?', cache('5 minutes') ,function(req, res) {
 
     utility.on_fetchTopNovelList(function(novelList){
         res.send(novelList);

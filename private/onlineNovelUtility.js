@@ -1,26 +1,19 @@
 var nrUtility = require('../private/novelReaderParserUtility');
 
-var on_baseURL = "http://onlinenovelreader.com/";
-var on_novelList = on_baseURL + "novel-list";
-//var on_latestUpdate = on_baseURL + "latest-updates";
-var on_topList = on_baseURL + "top-novel";
-// var on_topRated = on_baseURL + "?change_type=top_rated";
-var chpaters = on_baseURL;
-
 var onUtility = {};
 
 onUtility.on_fetchNovelList = function (next) {
 
     if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReaderList(next);
+        nrUtility.mock_OnlineNovelReader_allList(next);
         return;
     }
 
-    nrUtility.nr_novelListRequest.get({url: on_novelList}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.on_novelList}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
-            var novelList = nrUtility.parse_OnlineNovelReaderList(body);
+            var novelList = nrUtility.parse_OnlineNovelReader_allList(body);
 
             if (novelList.length === 0) {
                 next( { error: 'Not able to find the keyword' } );
@@ -42,7 +35,7 @@ onUtility.on_fetchRecentNovelList = function (next) {
         return;
     }
 
-    nrUtility.nr_novelListRequest.get({url: on_topList}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.on_latestUpdate}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
@@ -68,7 +61,7 @@ onUtility.on_fetchTopNovelList = function (next) {
         return;
     }
 
-    nrUtility.nr_novelListRequest.get({url: on_topList}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.on_topList}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
@@ -94,7 +87,7 @@ onUtility.on_fetchChaptersList = function (novelName, next) {
         return;
     }
 
-    nrUtility.nr_novelListRequest.get({url: chpaters + novelName}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
@@ -120,7 +113,7 @@ onUtility.on_fetchChapter = function (novelName, next) {
         return;
     }
 
-    nrUtility.nr_novelListRequest.get({url: chpaters + novelName}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 

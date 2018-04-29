@@ -4,6 +4,13 @@ var fs = require('fs');
 
 var nrUtility = {};
 
+var on_baseURL = "http://onlinenovelreader.com/";
+nrUtility.on_novelList = on_baseURL + "novel-list";
+nrUtility.on_latestUpdate = on_baseURL + "latest-updates";
+nrUtility.on_topList = on_baseURL + "top-novel";
+// var on_topRated = on_baseURL + "?change_type=top_rated";
+nrUtility.chpaters = on_baseURL;
+
 //Novel Object: Definition
 nrUtility.novelObject = function () {
     /*this.name = '';
@@ -11,7 +18,7 @@ nrUtility.novelObject = function () {
     this.artist = '';
     this.status = '';
     this.type = '';
-    this.url = '';
+    this.identifier = '';
     this.image = '';
     this.rating = '';
     this.lastUpdate = '';
@@ -31,6 +38,16 @@ nrUtility.isDebugMode = function () {
     return typeof v8debug === 'object';
 };
 
+//String Encoding
+var encode = function (string) {
+    return Buffer.from(string.replace(on_baseURL, "")).toString('base64');
+};
+//String Decoding
+nrUtility.decode = function (string) {
+    return Buffer.from(string, 'base64').toString('utf8');
+
+};
+
 //Novel reader, default 'request'
 nrUtility.nr_novelListRequest = request.defaults({
     method : 'GET',
@@ -42,7 +59,7 @@ nrUtility.nr_novelListRequest = request.defaults({
 
 //URL: http://onlinenovelreader.com
 //All available novels
-nrUtility.parse_OnlineNovelReaderList = function (html) {
+nrUtility.parse_OnlineNovelReader_allList = function (html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -119,7 +136,7 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
 
                     var hrefValue = $(el).attr('href');
                     if (hrefValue) {
-                        object.url = hrefValue;
+                        object.identifier = encode(hrefValue);
                     }
                     else if ($(el).attr('class') === 'popover') {
                         createNovelElement(el, object);
@@ -138,7 +155,7 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
 
     return novels;
 };
-nrUtility.mock_OnlineNovelReaderList = function (next) {
+nrUtility.mock_OnlineNovelReader_allList = function (next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_novellist.html', 'utf8', function (err,data) {
 
@@ -147,7 +164,7 @@ nrUtility.mock_OnlineNovelReaderList = function (next) {
             next( { error: 'Not able to find the keyword' } );
         }
 
-        var novelListPage = nrUtility.parse_OnlineNovelReaderList(data);
+        var novelListPage = nrUtility.parse_OnlineNovelReader_allList(data);
 
         if (novelListPage.length === 0) {
             next( { error: 'Not able to find the keyword' } );
@@ -157,6 +174,7 @@ nrUtility.mock_OnlineNovelReaderList = function (next) {
         }
     });
 };
+
 //Top NovelList
 nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
 
@@ -202,6 +220,7 @@ nrUtility.mock_OnlineNovelReader_topNovelList = function (next) {
         }
     });
 };
+
 //Latest NovelList
 nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
 
@@ -225,7 +244,7 @@ nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
 
                     var hrefValue = $(novel).attr('href');
                     if (hrefValue) {
-                        object.url = hrefValue;
+                        object.identifier = encode(hrefValue);
                         object.name = $(this).text().toString();
                     }
                     else if ($(this).hasClass('list_chapter_date')) {
@@ -233,7 +252,7 @@ nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
                     }
                 });
 
-                if (object.hasOwnProperty('url') && object.url.length > 0) {
+                if (object.hasOwnProperty('identifier') && object.identifier.length > 0) {
                     novels.push(object);
                 }
             });
@@ -308,7 +327,7 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
                 var hrefValue = $(this).attr('href');
                 if (hrefValue) {
                     //Chapter URL
-                    object.url = hrefValue;
+                    object.identifier = encode(hrefValue);
                     //Chapter Name
                     object.name = $(this).text().toString();
                     novels.chapters.push(object);
@@ -419,7 +438,7 @@ nrUtility.parse_NovelOnlineFreeList = function (html) {
             if (object.name === null || object.name === undefined) {
                 object.name = $(element).attr('title');
             }
-            object.url = $(element).attr('href');
+            object.identifier = $(element).attr('href');
 
             $(element).children().filter(function(i, el){
                 if ($(el).attr('src') !== null) {
