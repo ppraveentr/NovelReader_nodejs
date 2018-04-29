@@ -186,17 +186,77 @@ nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
 
     var novels = [];
 
-    $('div.top-novel-block').each(function (i, novelElement) {
+    function createNovelElement(element, obj) {
 
-        $(novelElement).children().filter(function(i, liResult) {
+        $(element).children().filter(function(i, el) {
 
-            if ($(liResult).hasClass('top-novel-header')) {
-                    console.log($(liResult));
+            //Title
+            if ($(this).hasClass('top-novel-header')) {
+                $(this).children().filter(function(i, el) {
+                    var name = $(this).text().toString();
+                    if (el.name === 'h2' && name !== '' ){
+                        obj.name = name;
+                    }
+                });
             }
-            else if ($(liResult).hasClass('top-novel-content')) {
-                console.log($(liResult));
+            //Content
+            else if ($(this).hasClass('top-novel-content')) {
+                createNovelElement(this, obj);
+            }
+            else if ($(this).hasClass('top-novel-body')) {
+                createNovelElement(this, obj);
+            }
+            else if ( $(this).hasClass('novel-item')) {
+
+                $(this).children().filter(function(i, el) {
+                    //Novel URL
+                    var label = $(this).text().toString();
+                    if (label === 'Author:') {
+                        obj.author = $(this).next().text().toString()
+                    }
+                    else if (label === 'Artist:') {
+                        obj.artist = $(this).next().text().toString()
+                    }
+                    else if (label === 'Status:') {
+                        obj.status = $(this).next().text().toString()
+                    }
+                    else if (label === 'Type:') {
+                        obj.type = $(this).next().text().toString()
+                    }
+                    else if (label === 'Genre:') {
+                        obj.genres = [$(this).next().text().toString()]
+                    }
+                });
+            }
+            else if ($(this).hasClass('top-novel-cover')) {
+                $(this).children().filter(function(i, el) {
+                    //Novel URL
+                    var hrefValue = $(this).attr('href');
+                    if (hrefValue) {
+                        obj.identifier = encode(hrefValue);
+                    }
+                    //Novel Cover Image
+                    $(this).children().filter(function(i, img) {
+                        var imageUrl = $(img).attr('src');
+                        if (img.name === 'img' && imageUrl !== '' ){
+                            obj.image = imageUrl;
+                        }
+                    });
+                });
             }
         });
+    }
+
+
+    $('div.top-novel-block').each(function (i, novelElement) {
+
+        var object = new nrUtility.novelObject();
+
+        createNovelElement(novelElement, object);
+
+        if (object.hasOwnProperty('name') && object.name.length > 0) {
+            novels.push(object);
+        }
     });
 
     return novels;
