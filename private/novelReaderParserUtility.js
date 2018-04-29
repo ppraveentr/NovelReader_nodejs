@@ -35,7 +35,7 @@ nrUtility.novelObject = function () {
 
 //Is running in Debug mode
 nrUtility.isDebugMode = function () {
-    return typeof v8debug === 'object';
+    return false;
 };
 
 //String Encoding
