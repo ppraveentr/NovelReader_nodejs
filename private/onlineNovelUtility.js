@@ -4,10 +4,10 @@ var onUtility = {};
 
 onUtility.on_fetchNovelList = function (next) {
 
-    if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReader_allList(next);
-        return;
-    }
+    // if (nrUtility.isDebugMode){
+    //     nrUtility.mock_OnlineNovelReader_allList(next);
+    //     return;
+    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_novelList}, function (error, response, body) {
 
@@ -30,10 +30,10 @@ onUtility.on_fetchNovelList = function (next) {
 
 onUtility.on_fetchRecentNovelList = function (next) {
 
-    if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReader_recentNovelList(next);
-        return;
-    }
+    // if (nrUtility.isDebugMode){
+    //     nrUtility.mock_OnlineNovelReader_recentNovelList(next);
+    //     return;
+    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_latestUpdate}, function (error, response, body) {
 
@@ -56,10 +56,10 @@ onUtility.on_fetchRecentNovelList = function (next) {
 
 onUtility.on_fetchTopNovelList = function (next) {
 
-    if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReader_topNovelList(next);
-        return;
-    }
+    // if (nrUtility.isDebugMode){
+    //     nrUtility.mock_OnlineNovelReader_topNovelList(next);
+    //     return;
+    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_topList}, function (error, response, body) {
 
@@ -82,10 +82,10 @@ onUtility.on_fetchTopNovelList = function (next) {
 
 onUtility.on_fetchChaptersList = function (novelName, next) {
 
-    if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReader_chaptersList(next);
-        return;
-    }
+    // if (nrUtility.isDebugMode){
+    //     nrUtility.mock_OnlineNovelReader_chaptersList(next);
+    //     return;
+    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
@@ -108,10 +108,10 @@ onUtility.on_fetchChaptersList = function (novelName, next) {
 
 onUtility.on_fetchChapter = function (novelName, next) {
 
-    if (nrUtility.isDebugMode){
-        nrUtility.mock_OnlineNovelReader_chapter(next);
-        return;
-    }
+    // if (nrUtility.isDebugMode){
+    //     nrUtility.mock_OnlineNovelReader_chapter(next);
+    //     return;
+    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
