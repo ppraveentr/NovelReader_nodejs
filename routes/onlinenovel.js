@@ -31,4 +31,26 @@ router.get('/top-list', cache('5 minutes') ,function(req, res) {
     });
 });
 
+/* GET novel/chapters-list listing. */
+router.get('/chapters-list/:id?', cache('5 minutes') ,function(req, res) {
+
+    var novelName = req.query.id;
+
+    utility.on_fetchChaptersList(novelName, function(novelList){
+        res.send(novelList);
+        res.end();
+    });
+});
+
+/* GET novel/chapter listing. */
+router.get('/chapter/:id?', function(req, res) {
+
+    var novelName = req.query.id;
+
+    utility.on_fetchChapter(novelName, function(novelList){
+        res.send(novelList);
+        res.end();
+    });
+});
+
 module.exports = router;

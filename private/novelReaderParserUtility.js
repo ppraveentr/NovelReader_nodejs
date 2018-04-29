@@ -4,6 +4,7 @@ var fs = require('fs');
 
 var nrUtility = {};
 
+//Novel Object: Definition
 nrUtility.novelObject = function () {
     /*this.name = '';
     this.author = '';
@@ -11,15 +12,19 @@ nrUtility.novelObject = function () {
     this.status = '';
     this.type = '';
     this.url = '';
-    this.summary = '';
     this.image = '';
     this.rating = '';
     this.lastUpdate = '';
     this.genres = '';
     this.views = '';
+
+    this.summary = '';
+    this.chapters = '';
+
+    this.shortTitle = '';
+    this.shortTitle = '';
     */
 };
-
 
 //Is running in Debug mode
 nrUtility.isDebugMode = function () {
@@ -36,7 +41,7 @@ nrUtility.nr_novelListRequest = request.defaults({
 });
 
 //URL: http://onlinenovelreader.com
-//All avaialble novels
+//All available novels
 nrUtility.parse_OnlineNovelReaderList = function (html) {
 
     var $ = domParser.load(html, {
@@ -87,15 +92,15 @@ nrUtility.parse_OnlineNovelReaderList = function (html) {
                     }
                     //Eg. Web novel, Light Novel
                     else if ($(ratingBox).attr('class') === 'text') {
-                        obj.genres = $(ratingBox).text().toString();
+                        obj.type = $(ratingBox).text().toString();
                     }
                 });
             }
             //For Views count
             else if ($(el).attr('class') === 'pop-genres') {
-                var genres = $(this).text().toString();
-                genres = genres.replace("Views:", "").trim();
-                obj.views = genres;
+                var viewCount = $(this).text().toString();
+                viewCount = viewCount.replace("Views:", "").trim();
+                obj.views = viewCount;
             }
 
             return el;
@@ -247,6 +252,136 @@ nrUtility.mock_OnlineNovelReader_recentNovelList = function (next) {
         }
 
         var novelListPage = nrUtility.parse_OnlineNovelReader_recentNovelList(data);
+
+        if (novelListPage.length === 0) {
+            next( { error: 'Not able to find the keyword' } );
+        }
+        else {
+            next(novelListPage);
+        }
+    });
+};
+
+//Chapters-list
+nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
+
+    var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+    var novels = new nrUtility.novelObject();
+    novels.chapters = [];
+
+    //Novel Name
+    $('div.block-title').each(function (i, titleElement) {
+        $(titleElement).children().filter(function(i, liResult) {
+            var name = $(liResult).text().toString();
+            if (liResult.name === 'h1' && name !== '' ){
+                novels.name = name;
+            }
+        });
+    });
+
+    //Novel Cover
+    $('div.novel-cover').each(function (i, coverElement) {
+        $(coverElement).children().filter(function(i, liResult) {
+            if (liResult.name === 'a'){
+                $(liResult).children().filter(function(i, cover) {
+                    //Cover URL
+                    var hrefValue = $(this).attr('src');
+                    if (hrefValue) {
+                        novels.image = hrefValue;
+                    }
+                });
+            }
+        });
+    });
+
+    //Novel Chapters
+    $('ul.chapter-chs').each(function (i, novelElement) {
+        $(novelElement).children().filter(function(i, liResult) {
+            var object = new nrUtility.novelObject();
+            $(liResult).children().filter(function(i, obj) {
+
+                var hrefValue = $(this).attr('href');
+                if (hrefValue) {
+                    //Chapter URL
+                    object.url = hrefValue;
+                    //Chapter Name
+                    object.name = $(this).text().toString();
+                    novels.chapters.push(object);
+                }
+            });
+        });
+    });
+
+    return novels;
+};
+nrUtility.mock_OnlineNovelReader_chaptersList = function (next) {
+
+    fs.readFile('./private/demopages/onlinenovelreader_fetchNovelChapters.html', 'utf8', function (err,data) {
+
+        if (err) {
+            debug(err);
+            next( { error: 'Not able to find the keyword' } );
+        }
+
+        var novelListPage = nrUtility.parse_OnlineNovelReader_chaptersList(data);
+
+        if (novelListPage.length === 0) {
+            next( { error: 'Not able to find the keyword' } );
+        }
+        else {
+            next(novelListPage);
+        }
+    });
+};
+
+//Chapter
+nrUtility.parse_OnlineNovelReader_chapter = function (html) {
+
+    var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+    var novelChapter = new nrUtility.novelObject();
+    var content = '';
+
+    $('div.chapter-content3').each(function (i, novelElement) {
+
+        $(novelElement).children().filter(function(i, liResult) {
+
+            $(liResult).children().filter(function(i, obj) {
+
+                if (obj.name === 'h3') {
+                    novelChapter.shortTitle = $(obj).text().toString();
+                }
+                else if (obj.name === 'p') {
+                    content = content + '<p>' + $(obj).text().toString() + '</p>';
+                }
+
+            });
+        });
+    });
+
+    novelChapter.content = content;
+
+    return novelChapter;
+};
+nrUtility.mock_OnlineNovelReader_chapter = function (next) {
+
+    fs.readFile('./private/demopages/onlinenovelreader_chapter.html', 'utf8', function (err,data) {
+
+        if (err) {
+            debug(err);
+            next( { error: 'Not able to find the keyword' } );
+        }
+
+        var novelListPage = nrUtility.parse_OnlineNovelReader_chapter(data);
 
         if (novelListPage.length === 0) {
             next( { error: 'Not able to find the keyword' } );

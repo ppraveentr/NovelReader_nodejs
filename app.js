@@ -3,7 +3,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+// var index = require('./routes/index');
 //var novelList = require('./routes/novel');
 var novelList = require('./routes/onlinenovel');
 
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/novel', novelList);
 
 // catch 404 and forward to error handler
