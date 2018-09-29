@@ -276,7 +276,7 @@ nrUtility.mock_OnlineNovelReader_topNovelList = function (next) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
-            next(novelListPage);
+            next( { response: novelListPage } );
         }
     });
 };
@@ -336,7 +336,7 @@ nrUtility.mock_OnlineNovelReader_recentNovelList = function (next) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
-            next(novelListPage);
+            next( { response: novelListPage } );
         }
     });
 };
@@ -413,7 +413,7 @@ nrUtility.mock_OnlineNovelReader_chaptersList = function (next) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
-            next(novelListPage);
+            return next( { response: novelListPage } );
         }
     });
 };
@@ -466,7 +466,7 @@ nrUtility.mock_OnlineNovelReader_chapter = function (next) {
             next( { error: 'Not able to find the keyword' } );
         }
         else {
-            next(novelListPage);
+            return next( { response: novelListPage } );
         }
     });
 };
