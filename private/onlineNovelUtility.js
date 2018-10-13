@@ -1,13 +1,8 @@
-var nrUtility = require('../private/novelReaderParserUtility');
+var nrUtility = require('./onlineNovelParser');
 
 var onUtility = {};
 
 onUtility.on_fetchNovelList = function (next) {
-
-    // if (nrUtility.isDebugMode){
-    //     nrUtility.mock_OnlineNovelReader_allList(next);
-    //     return;
-    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_novelList}, function (error, response, body) {
 
@@ -19,7 +14,7 @@ onUtility.on_fetchNovelList = function (next) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
-                next(novelList);
+                next( { response: novelList } );
             }
 
         }else{
@@ -29,11 +24,6 @@ onUtility.on_fetchNovelList = function (next) {
 };
 
 onUtility.on_fetchRecentNovelList = function (next) {
-
-    // if (nrUtility.isDebugMode){
-    //     nrUtility.mock_OnlineNovelReader_recentNovelList(next);
-    //     return;
-    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_latestUpdate}, function (error, response, body) {
 
@@ -45,7 +35,7 @@ onUtility.on_fetchRecentNovelList = function (next) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
-                next(novelList);
+                next( { response: novelList } );
             }
 
         }else{
@@ -55,11 +45,6 @@ onUtility.on_fetchRecentNovelList = function (next) {
 };
 
 onUtility.on_fetchTopNovelList = function (next) {
-
-    // if (nrUtility.isDebugMode){
-    //     nrUtility.mock_OnlineNovelReader_topNovelList(next);
-    //     return;
-    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.on_topList}, function (error, response, body) {
 
@@ -71,7 +56,7 @@ onUtility.on_fetchTopNovelList = function (next) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
-                next(novelList);
+                next( { response: novelList } );
             }
 
         }else{
@@ -81,11 +66,6 @@ onUtility.on_fetchTopNovelList = function (next) {
 };
 
 onUtility.on_fetchChaptersList = function (novelName, next) {
-
-    // if (nrUtility.isDebugMode){
-    //     nrUtility.mock_OnlineNovelReader_chaptersList(next);
-    //     return;
-    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
@@ -97,7 +77,7 @@ onUtility.on_fetchChaptersList = function (novelName, next) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
-                next(novelList);
+                next( { response: novelList } );
             }
 
         }else{
@@ -107,11 +87,6 @@ onUtility.on_fetchChaptersList = function (novelName, next) {
 };
 
 onUtility.on_fetchChapter = function (novelName, next) {
-
-    // if (nrUtility.isDebugMode){
-    //     nrUtility.mock_OnlineNovelReader_chapter(next);
-    //     return;
-    // }
 
     nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(novelName)}, function (error, response, body) {
 
@@ -123,7 +98,39 @@ onUtility.on_fetchChapter = function (novelName, next) {
                 next( { error: 'Not able to find the keyword' } );
             }
             else {
-                next(novelList);
+                next( { response: novelList } );
+            }
+
+        }else{
+            next( { error: 'Not able to find the keyword' } );
+        }
+    });
+};
+
+onUtility.on_searchNovel = function (searchQuery, next) {
+
+    // var requestBody = {
+    //     url: nrUtility.on_search,
+    //     form: { search: '1', keyword: 'Sovereign Soaring The' }
+    // };
+
+    var requestBody = {
+        url: nrUtility.on_search,
+        form: searchQuery
+    };
+
+    nrUtility.nr_postRequest.post(requestBody, function (error, response, body) {
+        console.log(body);
+
+        if (!error && response.statusCode === 200) {
+
+            var novelList = nrUtility.parse_OnlineNovelReader_search(body);
+
+            if (novelList.length === 0) {
+                next( { error: 'Not able to find the keyword', status: 'ok' } );
+            }
+            else {
+                next( { response: novelList } );
             }
 
         }else{

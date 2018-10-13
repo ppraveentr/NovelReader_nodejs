@@ -1,6 +1,5 @@
 var domParser = require('cheerio');
 var request = require('request');
-var fs = require('fs');
 
 var nrUtility = {};
 
@@ -9,6 +8,7 @@ nrUtility.on_novelList = on_baseURL + "novel-list";
 nrUtility.on_latestUpdate = on_baseURL + "latest-updates";
 nrUtility.on_topList = on_baseURL + "top-novel";
 // var on_topRated = on_baseURL + "?change_type=top_rated";
+nrUtility.on_search = on_baseURL + "detailed-search";
 nrUtility.chpaters = on_baseURL;
 
 //Novel Object: Definition
@@ -42,6 +42,7 @@ nrUtility.isDebugMode = function () {
 var encode = function (string) {
     return Buffer.from(string.replace(on_baseURL, "")).toString('base64');
 };
+
 //String Decoding
 nrUtility.decode = function (string) {
     return Buffer.from(string, 'base64').toString('utf8');
@@ -53,6 +54,15 @@ nrUtility.nr_novelListRequest = request.defaults({
     method : 'GET',
     headers: {
         'content-type': 'text/html',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
+    }
+});
+
+//Novel reader, default 'request'
+nrUtility.nr_postRequest = request.defaults({
+    method : 'POST',
+    headers: {
+        "content-type": "application/x-www-form-urlencoded",
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
     }
 });
@@ -155,25 +165,6 @@ nrUtility.parse_OnlineNovelReader_allList = function (html) {
 
     return novels;
 };
-nrUtility.mock_OnlineNovelReader_allList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_novellist.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelListPage = nrUtility.parse_OnlineNovelReader_allList(data);
-
-        if (novelListPage.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            next(novelListPage);
-        }
-    });
-};
 
 //Top NovelList
 nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
@@ -261,30 +252,11 @@ nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
 
     return novels;
 };
-nrUtility.mock_OnlineNovelReader_topNovelList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_topNovel.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelListPage = nrUtility.parse_OnlineNovelReader_topNovelList(data);
-
-        if (novelListPage.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            next( { response: novelListPage } );
-        }
-    });
-};
 
 //Latest NovelList
 nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
 
-    var $ = domParser.load(html, {
+    const $ = domParser.load(html, {
         ignoreWhitespace: true,
         xmlMode: true,
         decodeEntities: true
@@ -320,25 +292,6 @@ nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
     });
 
     return novels;
-};
-nrUtility.mock_OnlineNovelReader_recentNovelList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_recentList.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelListPage = nrUtility.parse_OnlineNovelReader_recentNovelList(data);
-
-        if (novelListPage.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            next( { response: novelListPage } );
-        }
-    });
 };
 
 //Chapters-list
@@ -398,25 +351,6 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
 
     return novels;
 };
-nrUtility.mock_OnlineNovelReader_chaptersList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_fetchNovelChapters.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelListPage = nrUtility.parse_OnlineNovelReader_chaptersList(data);
-
-        if (novelListPage.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            return next( { response: novelListPage } );
-        }
-    });
-};
 
 //Chapter
 nrUtility.parse_OnlineNovelReader_chapter = function (html) {
@@ -451,24 +385,11 @@ nrUtility.parse_OnlineNovelReader_chapter = function (html) {
 
     return novelChapter;
 };
-nrUtility.mock_OnlineNovelReader_chapter = function (next) {
 
-    fs.readFile('./private/demopages/onlinenovelreader_chapter.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelListPage = nrUtility.parse_OnlineNovelReader_chapter(data);
-
-        if (novelListPage.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            return next( { response: novelListPage } );
-        }
-    });
+//Search
+nrUtility.parse_OnlineNovelReader_search = function (html) {
+    var novelListPage = nrUtility.parse_OnlineNovelReader_topNovelList(html);
+    return novelListPage;
 };
 
 /*
@@ -549,26 +470,8 @@ nrUtility.parse_NovelOnlineFreeList = function (html) {
 
     return novels;
 };
-nrUtility.mock_NovelOnlineFreeList = function (next) {
-
-    fs.readFile('./private/demopages/Novellist.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelList = nrUtility.parse_NovelOnlineFreeList(data);
-
-        if (novelList.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            next(novelList);
-        }
-    });
-};
 */
+
 //Search Novel
 nrUtility.normalize_searchString = function (alias) {
     var str = alias;

@@ -31,6 +31,9 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ipaddr.js/src/ipaddr.coffee" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ipaddr.js/test/ipaddr.test.coffee" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/mime/.npmignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/utlity.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/novel.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/private/novelReaderParserUtility.js" afterPath="$PROJECT_DIR$/private/onlineNovelParser.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/accepts/HISTORY.md" afterPath="$PROJECT_DIR$/node_modules/accepts/HISTORY.md" />
@@ -58,10 +61,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/mime/mime.js" afterPath="$PROJECT_DIR$/node_modules/mime/mime.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/mime/package.json" afterPath="$PROJECT_DIR$/node_modules/mime/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/mime/types.json" afterPath="$PROJECT_DIR$/node_modules/mime/types.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/parse5/lib/index.d.ts" afterPath="$PROJECT_DIR$/node_modules/parse5/lib/index.d.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/proxy-addr/HISTORY.md" afterPath="$PROJECT_DIR$/node_modules/proxy-addr/HISTORY.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/proxy-addr/README.md" afterPath="$PROJECT_DIR$/node_modules/proxy-addr/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/proxy-addr/index.js" afterPath="$PROJECT_DIR$/node_modules/proxy-addr/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/proxy-addr/package.json" afterPath="$PROJECT_DIR$/node_modules/proxy-addr/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/raw-body/index.d.ts" afterPath="$PROJECT_DIR$/node_modules/raw-body/index.d.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/send/HISTORY.md" afterPath="$PROJECT_DIR$/node_modules/send/HISTORY.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/send/README.md" afterPath="$PROJECT_DIR$/node_modules/send/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/send/index.js" afterPath="$PROJECT_DIR$/node_modules/send/index.js" />
@@ -73,8 +78,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/setprototypeof/README.md" afterPath="$PROJECT_DIR$/node_modules/setprototypeof/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/setprototypeof/package.json" afterPath="$PROJECT_DIR$/node_modules/setprototypeof/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/private/novelReaderParserUtility.js" afterPath="$PROJECT_DIR$/private/novelReaderParserUtility.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/private/onlineNovelUtility.js" afterPath="$PROJECT_DIR$/private/onlineNovelUtility.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/onlinenovel.js" afterPath="$PROJECT_DIR$/routes/onlinenovel.js" />
     </list>
@@ -91,97 +94,63 @@
       <file leaf-file-name="onlinenovel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/layer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="novelReaderParserUtility.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/private/novelReaderParserUtility.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1750">
-              <caret line="190" column="46" lean-forward="false" selection-start-line="190" selection-start-column="46" selection-end-line="190" selection-end-column="46" />
+            <state relative-caret-position="150">
+              <caret line="33" column="51" lean-forward="true" selection-start-line="33" selection-start-column="51" selection-end-line="33" selection-end-column="51" />
               <folding>
-                <element signature="e#483#840#0" expanded="false" />
-                <element signature="e#1263#1486#0" expanded="false" />
-                <element signature="e#1609#4637#0" expanded="false" />
-                <element signature="e#1808#3830#0" expanded="false" />
-                <element signature="e#3890#4613#0" expanded="false" />
-                <element signature="e#4698#5181#0" expanded="false" />
-                <element signature="e#8183#8686#0" expanded="false" />
-                <element signature="e#8776#9883#0" expanded="false" />
-                <element signature="e#8812#8903#0" expanded="false" />
-                <element signature="e#8992#9859#0" expanded="false" />
-                <element signature="e#10544#12237#0" expanded="false" />
-                <element signature="e#12896#13674#0" expanded="false" />
-                <element signature="e#12932#13023#0" expanded="false" />
-                <element signature="e#13164#13607#0" expanded="false" />
-                <element signature="e#16823#17517#0" expanded="false" />
-                <marker date="1538156322962" expanded="false" signature="14343:16249" ph="{...}" />
-                <marker date="1538156322962" expanded="false" signature="16304:16751" ph="{...}" />
+                <element signature="n#!!block;n#verify#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="novel.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/novel.js">
+      <file leaf-file-name="mock_onlineNovel.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/private/mock_onlineNovel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="15">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="45" />
+              <folding>
+                <element signature="e#3612#4163#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.js" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/util.js">
+      <file leaf-file-name="onlineNovelParser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/private/onlineNovelParser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14445">
-              <caret line="982" column="2" lean-forward="false" selection-start-line="982" selection-start-column="2" selection-end-line="982" selection-end-column="2" />
-              <folding />
+            <state relative-caret-position="1440">
+              <caret line="294" column="0" lean-forward="false" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
+              <folding>
+                <element signature="e#513#870#0" expanded="false" />
+                <element signature="e#1970#4998#0" expanded="false" />
+                <element signature="e#2006#2097#0" expanded="false" />
+                <element signature="e#2169#4191#0" expanded="false" />
+                <element signature="e#4251#4974#0" expanded="false" />
+                <element signature="e#5082#7934#0" expanded="false" />
+                <element signature="e#7686#7910#0" expanded="false" />
+                <element signature="e#9217#10910#0" expanded="false" />
+                <element signature="e#10983#11761#0" expanded="false" />
+                <element signature="e#11019#11110#0" expanded="false" />
+                <element signature="e#11251#11694#0" expanded="false" />
+                <element signature="e#11832#11939#0" expanded="false" />
+                <element signature="e#14022#14716#0" expanded="false" />
+                <marker date="1539424876964" expanded="false" signature="12043:13949" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="onlineNovelUtility.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="onlineNovelUtility.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utlity.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/private/utlity.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/fs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4800">
-              <caret line="339" column="2" lean-forward="false" selection-start-line="339" selection-start-column="2" selection-end-line="339" selection-end-column="2" />
-              <folding />
+              <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
+              <folding>
+                <element signature="e#116#659#0" expanded="false" />
+                <element signature="e#1320#1866#0" expanded="false" />
+                <element signature="e#1929#2503#0" expanded="false" />
+                <element signature="e#2561#3130#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -192,23 +161,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>type</find>
-      <find>on_topList</find>
-      <find>martial-god-asura</find>
-      <find>hrefValue</find>
-      <find>object.url = hrefValue</find>
-      <find>parse_OnlineNovelReaderList</find>
-      <find>on_fetchNovelList</find>
-      <find>OnlineNovelReaderList</find>
-      <find>http://onlinenovelreader.com/jun-jiuling/chapter-1</find>
-      <find>object.url = encode(hrefValue);</find>
-      <find>t.url</find>
       <find>.url</find>
       <find>top-novel-block</find>
       <find>novel-item</find>
@@ -228,6 +187,17 @@
       <find>return next( { response: novels } )</find>
       <find>return next( { response: novels } );</find>
       <find>novelReaderParserUtility</find>
+      <find>novel_search</find>
+      <find>fetchNovelList</find>
+      <find>chapter-actions</find>
+      <find>chapter-content3</find>
+      <find>chapter-chs</find>
+      <find>ul.chapter-chs</find>
+      <find>over</find>
+      <find>block-title</find>
+      <find>novel-block</find>
+      <find>top-novel-he</find>
+      <find>novel</find>
     </findStrings>
     <replaceStrings>
       <replace>= '';</replace>
@@ -257,9 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/routes/users.js" />
-        <option value="$PROJECT_DIR$/routes/novel_list.js" />
-        <option value="vm:237" />
         <option value="vm:390" />
         <option value="vm:391" />
         <option value="$PROJECT_DIR$/routes/index.js" />
@@ -269,12 +236,10 @@
         <option value="vm:701" />
         <option value="vm:688" />
         <option value="$PROJECT_DIR$/private/demopages/Novellist.html" />
-        <option value="$PROJECT_DIR$/routes/novel.js" />
         <option value="vm:673" />
         <option value="vm:670" />
         <option value="$PROJECT_DIR$/private/novelParserUtility.ts" />
         <option value="$PROJECT_DIR$/private/novelParserUtility.js" />
-        <option value="$PROJECT_DIR$/private/utlity.js" />
         <option value="vm:667" />
         <option value="$PROJECT_DIR$/package-lock.json" />
         <option value="vm:683" />
@@ -292,7 +257,6 @@
         <option value="vm:728" />
         <option value="vm:719" />
         <option value="vm:676" />
-        <option value="$PROJECT_DIR$/private/onlineNovelUtility.js" />
         <option value="vm:994" />
         <option value="vm:712" />
         <option value="vm:710" />
@@ -302,8 +266,18 @@
         <option value="vm:765" />
         <option value="vm:763" />
         <option value="vm:767" />
-        <option value="$PROJECT_DIR$/routes/onlinenovel.js" />
         <option value="$PROJECT_DIR$/private/novelReaderParserUtility.js" />
+        <option value="$PROJECT_DIR$/private/utlity.js" />
+        <option value="$PROJECT_DIR$/routes/novel.js" />
+        <option value="$PROJECT_DIR$/private/demopages/detailed_searc.html" />
+        <option value="$PROJECT_DIR$/private/demopages/onlinenovelreader_searchOption.html" />
+        <option value="$PROJECT_DIR$/private/demopages/search.html" />
+        <option value="$PROJECT_DIR$/private/demopages/onlinenovelreader_detailed_search.html" />
+        <option value="vm:764" />
+        <option value="$PROJECT_DIR$/private/mock_onlineNovel.js" />
+        <option value="$PROJECT_DIR$/private/onlineNovelParser.js" />
+        <option value="$PROJECT_DIR$/routes/onlinenovel.js" />
+        <option value="$PROJECT_DIR$/private/onlineNovelUtility.js" />
       </list>
     </option>
   </component>
@@ -347,10 +321,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -371,17 +344,13 @@
             <path>
               <item name="NovelReader_nodejs" type="b2602c69:ProjectViewProjectNode" />
               <item name="NovelReader_nodejs" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NovelReader_nodejs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NovelReader_nodejs" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,11 +360,13 @@
     <property name="javascript.nodejs.core.library.configured.version" value="8.2.1" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="last.edited.regexp" value="à" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.3091954" />
+    <property name="SearchEverywhereHistoryKey" value="fetchNovelList&#9;null&#9;null" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -500,6 +471,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="51337fbe-e83d-4e0b-af45-c67dbc5b888a" name="Default" comment="" />
@@ -542,7 +516,23 @@
       <workItem from="1537369049246" duration="2996000" />
       <workItem from="1537882061752" duration="602000" />
       <workItem from="1538149898296" duration="3014000" />
-      <workItem from="1538185927409" duration="1493000" />
+      <workItem from="1538185927409" duration="2143000" />
+      <workItem from="1538211450821" duration="614000" />
+      <workItem from="1538298238174" duration="1421000" />
+      <workItem from="1538312270917" duration="1142000" />
+      <workItem from="1538333518802" duration="603000" />
+      <workItem from="1538366999728" duration="436000" />
+      <workItem from="1538455211633" duration="293000" />
+      <workItem from="1538458455532" duration="2557000" />
+      <workItem from="1538484666899" duration="3048000" />
+      <workItem from="1538496309113" duration="3225000" />
+      <workItem from="1538705019082" duration="941000" />
+      <workItem from="1538753252866" duration="390000" />
+      <workItem from="1538760022559" duration="1527000" />
+      <workItem from="1538892942815" duration="1155000" />
+      <workItem from="1539188874102" duration="325000" />
+      <workItem from="1539189444398" duration="560000" />
+      <workItem from="1539421570000" duration="5319000" />
     </task>
     <task id="LOCAL-00001" summary="Added:route: novel_list">
       <created>1519495925833</created>
@@ -663,11 +653,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525024891038</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Updated Paser to send back response as Dictionary.">
+      <created>1538204667130</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1538204667130</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124497000" />
+    <option name="totallyTimeSpent" value="148703000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -684,34 +681,34 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2973822" sideWeight="0.502445" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2121027" sideWeight="0.5036649" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2121027" sideWeight="0.4963351" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32670158" sideWeight="0.49755502" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32670158" sideWeight="0.49755502" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -727,10 +724,38 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Added:route: novel_list" />
     <MESSAGE value="Updated Novel list parsing." />
     <MESSAGE value="Added new service: recentupadate. Fixed code warnings. Code cleanup." />
@@ -751,194 +776,22 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint type="javascript">
-          <url>file://$PROJECT_DIR$/private/onlineNovelUtility.js</url>
-          <line>84</line>
-          <option name="timeStamp" value="225" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/onlinenovel.js</url>
-          <line>28</line>
-          <option name="timeStamp" value="265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/onlinenovel.js</url>
-          <line>19</line>
-          <option name="timeStamp" value="267" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/onlinenovel.js</url>
-          <line>38</line>
-          <option name="timeStamp" value="268" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/onlinenovel.js</url>
-          <line>41</line>
-          <option name="timeStamp" value="269" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/novel.js</url>
-          <line>13</line>
-          <option name="timeStamp" value="270" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="278" />
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties />
+        </breakpoint>
+        <breakpoint enabled="true" type="javascript-exception">
+          <properties />
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="343" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="754" column="0" lean-forward="true" selection-start-line="754" selection-start-column="0" selection-end-line="754" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="754" column="0" lean-forward="true" selection-start-line="754" selection-start-column="0" selection-end-line="754" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/javascript/nodejs/library/node-globals-stub.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="58" column="4" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/http.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="58" column="2" lean-forward="false" selection-start-line="58" selection-start-column="2" selection-end-line="58" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1794">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="318" column="2" lean-forward="false" selection-start-line="318" selection-start-column="2" selection-end-line="318" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/cheerio/lib/api/manipulation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-317">
-          <caret line="340" column="15" lean-forward="false" selection-start-line="340" selection-start-column="8" selection-end-line="340" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/lodash/_apply.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/lodash/_overRest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/cheerio/lib/static.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/bootstrap_node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="276" column="8" lean-forward="false" selection-start-line="276" selection-start-column="8" selection-end-line="276" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/cheerio/lib/api/traversing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="320" column="6" lean-forward="false" selection-start-line="320" selection-start-column="6" selection-end-line="320" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/lodash/_baseFilter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/lodash/_createBaseEach.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="12" lean-forward="false" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/private/demopages/Novellist.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -968,13 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_novellist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-20775">
-          <caret line="318" column="30" lean-forward="false" selection-start-line="318" selection-start-column="30" selection-end-line="318" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_recentList.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -982,44 +828,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/novelreader_nodejs.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="9" lean-forward="false" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="793" column="21" lean-forward="false" selection-start-line="793" selection-start-column="21" selection-end-line="793" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/favicon.ico">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_chapter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="66" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_topNovel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="932" column="54" lean-forward="false" selection-start-line="932" selection-start-column="40" selection-end-line="932" selection-end-column="54" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -1043,27 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="24" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/apicache/src/apicache.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -1071,91 +861,310 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/route.js">
+    <entry file="file://$PROJECT_DIR$/routes/novel.js" />
+    <entry file="file://$PROJECT_DIR$/private/utlity.js" />
+    <entry file="file://$PROJECT_DIR$/private/demopages/EmperorDominationChapter.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="159" column="26" lean-forward="true" selection-start-line="159" selection-start-column="26" selection-end-line="159" selection-end-column="26" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/novel.js">
+    <entry file="file://$PROJECT_DIR$/private/demopages/detailed_searc.html" />
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_topNovel.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="188">
+          <caret line="932" column="54" lean-forward="false" selection-start-line="932" selection-start-column="40" selection-end-line="932" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_chapter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="605" column="48" lean-forward="false" selection-start-line="605" selection-start-column="32" selection-end-line="605" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_fetchNovelChapters.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21465">
+          <caret line="1431" column="58" lean-forward="false" selection-start-line="1431" selection-start-column="58" selection-end-line="1431" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_searchOption.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4815">
+          <caret line="567" column="51" lean-forward="false" selection-start-line="567" selection-start-column="36" selection-end-line="567" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1039">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/node/inspector.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="1671" column="8" lean-forward="false" selection-start-line="1671" selection-start-column="8" selection-end-line="1671" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14445">
-          <caret line="982" column="2" lean-forward="false" selection-start-line="982" selection-start-column="2" selection-end-line="982" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="236">
+          <caret line="977" column="20" lean-forward="false" selection-start-line="977" selection-start-column="20" selection-end-line="977" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/fs.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4800">
-          <caret line="339" column="2" lean-forward="false" selection-start-line="339" selection-start-column="2" selection-end-line="339" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="212">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express-session/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="454" column="6" lean-forward="false" selection-start-line="454" selection-start-column="6" selection-end-line="454" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/layer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
+        <state relative-caret-position="198">
           <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/cookie-parser/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="206">
+          <caret line="70" column="2" lean-forward="false" selection-start-line="70" selection-start-column="2" selection-end-line="70" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private/utlity.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/lodash/_overRest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
+        <state relative-caret-position="330">
+          <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/cheerio/lib/static.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/cheerio/lib/api/traversing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="298" column="10" lean-forward="false" selection-start-line="298" selection-start-column="10" selection-end-line="298" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_novellist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="298" column="55" lean-forward="false" selection-start-line="298" selection-start-column="44" selection-end-line="298" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="285" column="2" lean-forward="false" selection-start-line="285" selection-start-column="2" selection-end-line="285" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/onlinenovelreader_detailed_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2938">
+          <caret line="5644" column="7" lean-forward="false" selection-start-line="5644" selection-start-column="7" selection-end-line="5644" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/demopages/search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="4039" column="40" lean-forward="false" selection-start-line="4039" selection-start-column="40" selection-end-line="4039" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
+        <state relative-caret-position="135">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private/novelReaderParserUtility.js">
+    <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js___jb_old___">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1750">
-          <caret line="190" column="46" lean-forward="false" selection-start-line="190" selection-start-column="46" selection-end-line="190" selection-end-column="46" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/javascript/nodejs/library/node-globals-stub.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18001">
+          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/novelreader_nodejs.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="9" lean-forward="false" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="568" column="29" lean-forward="false" selection-start-line="568" selection-start-column="29" selection-end-line="568" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.2.1/core-modules/fs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="512" column="2" lean-forward="false" selection-start-line="512" selection-start-column="2" selection-end-line="512" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/onlinenovel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="33" column="51" lean-forward="true" selection-start-line="33" selection-start-column="51" selection-end-line="33" selection-end-column="51" />
           <folding>
-            <element signature="e#483#840#0" expanded="false" />
-            <element signature="e#1263#1486#0" expanded="false" />
-            <element signature="e#1609#4637#0" expanded="false" />
-            <element signature="e#1808#3830#0" expanded="false" />
-            <element signature="e#3890#4613#0" expanded="false" />
-            <element signature="e#4698#5181#0" expanded="false" />
-            <element signature="e#8183#8686#0" expanded="false" />
-            <element signature="e#8776#9883#0" expanded="false" />
-            <element signature="e#8812#8903#0" expanded="false" />
-            <element signature="e#8992#9859#0" expanded="false" />
-            <element signature="e#10544#12237#0" expanded="false" />
-            <element signature="e#12896#13674#0" expanded="false" />
-            <element signature="e#12932#13023#0" expanded="false" />
-            <element signature="e#13164#13607#0" expanded="false" />
-            <element signature="e#16823#17517#0" expanded="false" />
-            <marker date="1538156322962" expanded="false" signature="14343:16249" ph="{...}" />
-            <marker date="1538156322962" expanded="false" signature="16304:16751" ph="{...}" />
+            <element signature="n#!!block;n#verify#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/onlineNovelParser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="294" column="0" lean-forward="false" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
+          <folding>
+            <element signature="e#513#870#0" expanded="false" />
+            <element signature="e#1970#4998#0" expanded="false" />
+            <element signature="e#2006#2097#0" expanded="false" />
+            <element signature="e#2169#4191#0" expanded="false" />
+            <element signature="e#4251#4974#0" expanded="false" />
+            <element signature="e#5082#7934#0" expanded="false" />
+            <element signature="e#7686#7910#0" expanded="false" />
+            <element signature="e#9217#10910#0" expanded="false" />
+            <element signature="e#10983#11761#0" expanded="false" />
+            <element signature="e#11019#11110#0" expanded="false" />
+            <element signature="e#11251#11694#0" expanded="false" />
+            <element signature="e#11832#11939#0" expanded="false" />
+            <element signature="e#14022#14716#0" expanded="false" />
+            <marker date="1539424876964" expanded="false" signature="12043:13949" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/mock_onlineNovel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="45" />
+          <folding>
+            <element signature="e#3612#4163#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/onlineNovelUtility.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
+          <folding>
+            <element signature="e#116#659#0" expanded="false" />
+            <element signature="e#1320#1866#0" expanded="false" />
+            <element signature="e#1929#2503#0" expanded="false" />
+            <element signature="e#2561#3130#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1236,6 +1245,17 @@
         </settings>
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3091954" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
         <settings>
           <splitter-proportions>
             <option name="proportions">
