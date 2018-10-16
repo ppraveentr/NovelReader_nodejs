@@ -1,0 +1,49 @@
+Index: app.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>var express = require('express');\nvar logger = require('morgan');\nvar cookieParser = require('cookie-parser');\nvar bodyParser = require('body-parser');\nvar favicon = require('serve-favicon');\nvar path = require('path');\n\n// var index = require('./routes/index');\n//var novelList = require('./routes/novel');\nvar novelList = require('./routes/onlinenovel');\n\nvar app = express();\n\napp.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));\napp.use(logger('dev'));\napp.use(bodyParser.json());\napp.use(bodyParser.urlencoded({ extended: false }));\napp.use(cookieParser());\n\n// app.use('/', index);\napp.use('/novel', novelList);\n\n// catch 404 and forward to error handler\napp.use(function(req, res, next) {\n  var err = new Error('Not Found');\n  err.status = 404;\n  next(err);\n});\n\n// error handler\napp.use(function(err, req, res) {\n  // set locals, only providing error in development\n  res.locals.message = err.message;\n  res.locals.error = req.app.get('env') === 'development' ? err : {};\n\n  // render the error page\n  res.status(err.status || 500);\n  // res.render('error');\n});\n\nmodule.exports = app;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app.js	(revision 03323fdbad1ef140a42b89d1e2ce7b09063e0bca)
++++ app.js	(revision )
+@@ -1,12 +1,12 @@
+ var express = require('express');
++var session = require('express-session');
++var uid = require('uid-safe');
+ var logger = require('morgan');
+ var cookieParser = require('cookie-parser');
+ var bodyParser = require('body-parser');
+ var favicon = require('serve-favicon');
+ var path = require('path');
+ 
+-// var index = require('./routes/index');
+-//var novelList = require('./routes/novel');
+ var novelList = require('./routes/onlinenovel');
+ 
+ var app = express();
+@@ -17,6 +17,24 @@
+ app.use(bodyParser.urlencoded({ extended: false }));
+ app.use(cookieParser());
+ 
++//Session management
++var sess = {
++    genid: function(req) {
++        return uid.sync(18); // use UUIDs for session IDs
++    },
++    secret: 'keyboard cat',
++    resave: false,
++    saveUninitialized: true,
++    cookie: { maxAge: 60000 }
++};
++
++if (app.get('env') === 'production') {
++    app.set('trust proxy', 1); // trust first proxy
++    sess.cookie.secure = true; // serve secure cookies
++}
++
++app.use(session(sess));
++
+ // app.use('/', index);
+ app.use('/novel', novelList);
+ 
