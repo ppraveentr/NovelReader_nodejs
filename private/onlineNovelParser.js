@@ -11,7 +11,7 @@ nrUtility.on_topList = on_baseURL + "top-novel";
 nrUtility.on_search = on_baseURL + "detailed-search";
 nrUtility.chpaters = on_baseURL;
 
-//Novel Object: Definition
+// Novel Object: Definition
 nrUtility.novelObject = function () {
     /*this.name = '';
     this.author = '';
@@ -33,23 +33,23 @@ nrUtility.novelObject = function () {
     */
 };
 
-//Is running in Debug mode
+// Is running in Debug mode
 nrUtility.isDebugMode = function () {
     return false;
 };
 
-//String Encoding
+// String Encoding
 var encode = function (string) {
     return Buffer.from(string.replace(on_baseURL, "")).toString('base64');
 };
 
-//String Decoding
+// String Decoding
 nrUtility.decode = function (string) {
     return Buffer.from(string, 'base64').toString('utf8');
 
 };
 
-//Novel reader, default 'request'
+// Novel reader, default 'request'
 nrUtility.nr_novelListRequest = request.defaults({
     method : 'GET',
     headers: {
@@ -58,7 +58,7 @@ nrUtility.nr_novelListRequest = request.defaults({
     }
 });
 
-//Novel reader, default 'request'
+// Novel reader, default 'request'
 nrUtility.nr_postRequest = request.defaults({
     method : 'POST',
     headers: {
@@ -67,8 +67,8 @@ nrUtility.nr_postRequest = request.defaults({
     }
 });
 
-//URL: http://onlinenovelreader.com
-//All available novels
+// URL: http://onlinenovelreader.com
+// All available novels
 nrUtility.parse_OnlineNovelReader_allList = function (html) {
 
     var $ = domParser.load(html, {
@@ -166,7 +166,7 @@ nrUtility.parse_OnlineNovelReader_allList = function (html) {
     return novels;
 };
 
-//Top NovelList
+// Top NovelList
 nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
 
     var $ = domParser.load(html, {
@@ -253,7 +253,7 @@ nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
     return novels;
 };
 
-//Latest NovelList
+// Latest NovelList
 nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
 
     const $ = domParser.load(html, {
@@ -294,7 +294,7 @@ nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
     return novels;
 };
 
-//Chapters-list
+// Chapters-list
 nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
 
     var $ = domParser.load(html, {
@@ -306,7 +306,7 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
     var novels = new nrUtility.novelObject();
     novels.chapters = [];
 
-    //Novel Name
+    // Novel Name
     $('div.block-title').each(function (i, titleElement) {
         $(titleElement).children().filter(function(i, liResult) {
             var name = $(liResult).text().toString();
@@ -352,7 +352,7 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
     return novels;
 };
 
-//Chapter
+// Chapter
 nrUtility.parse_OnlineNovelReader_chapter = function (html) {
 
     var $ = domParser.load(html, {
@@ -386,10 +386,94 @@ nrUtility.parse_OnlineNovelReader_chapter = function (html) {
     return novelChapter;
 };
 
-//Search
+// Search
 nrUtility.parse_OnlineNovelReader_search = function (html) {
     var novelListPage = nrUtility.parse_OnlineNovelReader_topNovelList(html);
     return novelListPage;
+};
+
+// Search filter
+nrUtility.parse_OnlineNovelReader_searchFilter = function (html) {
+
+    var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+    function filterElement(element, obj) {
+
+        $(element).children().filter(function(i, el) {
+
+            //Title
+            if ($(this).hasClass('label')) {
+                $(this).children().filter(function(i, el) {
+                    var name = $(this).text().toString();
+                    if (name === 'Novel Type' && name !== '' ){
+                        obj.name = name;
+                        obj.novelType = []
+                    }
+                    else if (name === 'Language' && name !== '' ){
+                        obj.name = name;
+                        obj.language = []
+                    }
+                    else if (name === 'Genre' && name !== '' ){
+                        obj.name = name;
+                        obj.genres = []
+                    }
+                    else if (name === 'Completed' && name !== '' ){
+                        obj.name = name;
+                        obj.completed = []
+                    }
+                });
+            }
+            // "content"
+            else if ($(this).hasClass('content')) {
+
+                $(this).children().filter(function(i, el) {
+                    $(el).children().filter(function(i, el) {
+                        // Type
+                        var type = $(el).attr('data-value');
+                        // novel type
+                        if (obj.name === "Novel Type" && type !== '') {
+                            var name = $(this).text().toString();
+                            var novelType = {'data': type, 'type': name};
+                            obj.novelType.push(novelType)
+                        }
+                        // Language
+                        else if (obj.name === "Language" && type !== '') {
+                            var name = $(this).text().toString();
+                            var language = {'data': type, 'type': name};
+                            obj.language.push(language)
+                        }
+                        // Genre
+                        else if (obj.name === "Genre" && type !== '') {
+                            var name = $(this).text().toString();
+                            var gener = {'data': type, 'type': name};
+                            obj.genres.push(gener)
+                        }
+                        // Completed
+                        else if (obj.name === "Completed" && type !== '') {
+                            var name = $(this).text().toString();
+                            var completed = {'data': type, 'type': name};
+                            obj.completed.push(completed)
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    var object = new nrUtility.novelObject();
+
+    $('div.filter').each(function (i, filter) {
+        object.name = '';
+        filterElement(filter, object);
+    });
+
+    object.name = '';
+
+    return object;
 };
 
 /*

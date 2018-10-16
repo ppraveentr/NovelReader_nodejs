@@ -16,6 +16,7 @@ router.get('/list', cache('5 minutes') ,function(req, res) {
 
 /* GET novel/recentupdates listing. */
 router.get('/recentupdates', function(req, res) {
+
     utility.on_fetchRecentNovelList(function(recentList){
         res.send(recentList);
         res.end();
@@ -48,6 +49,26 @@ router.get('/chapter/:id?', function(req, res) {
     var novelName = req.query.id;
 
     utility.on_fetchChapter(novelName, function(novelList){
+        res.send(novelList);
+        res.end();
+    });
+});
+
+/* GET novel/search-filter. */
+router.get('/search-filter', function(req, res) {
+
+    utility.on_searchFilter(function(filter){
+        res.send(filter);
+        res.end();
+    });
+});
+
+/* POST */
+router.post('/search', function(req, res) {
+
+    var searchQuery = req.body;
+
+    utility.on_searchNovel(searchQuery, function(novelList){
         res.send(novelList);
         res.end();
     });

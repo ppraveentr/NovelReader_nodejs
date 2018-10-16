@@ -139,4 +139,25 @@ onUtility.on_searchNovel = function (searchQuery, next) {
     });
 };
 
+onUtility.on_searchFilter = function (next) {
+
+    nrUtility.nr_novelListRequest.get({url: nrUtility.on_search}, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+
+            var filter = nrUtility.parse_OnlineNovelReader_searchFilter(body);
+
+            if (filter.length === 0) {
+                next( { error: 'Not able to find the filter' } );
+            }
+            else {
+                next( { response: filter } );
+            }
+
+        }else{
+            next( { error: 'Not able to find the filter' } );
+        }
+    });
+};
+
 module.exports = onUtility;

@@ -4,8 +4,8 @@ novelParser = require('./onlineNovelParser');
 
 var mock_nrUtility = {};
 
-//URL: http://onlinenovelreader.com
-//All available novels
+// URL: http://onlinenovelreader.com
+// All available novels
 mock_nrUtility.on_fetchNovelList = function (next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_novellist.html', 'utf8', function (err, data) {
@@ -26,7 +26,7 @@ mock_nrUtility.on_fetchNovelList = function (next) {
     });
 };
 
-//Top NovelList
+// Top NovelList
 mock_nrUtility.on_fetchTopNovelList = function (next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_topNovel.html', 'utf8', function (err, data) {
@@ -47,7 +47,7 @@ mock_nrUtility.on_fetchTopNovelList = function (next) {
     });
 };
 
-//Latest NovelList
+// Latest NovelList
 mock_nrUtility.on_fetchRecentNovelList = function (next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_recentList.html', 'utf8', function (err, data) {
@@ -68,7 +68,7 @@ mock_nrUtility.on_fetchRecentNovelList = function (next) {
     });
 };
 
-//Chapters-list
+// Chapters-list
 mock_nrUtility.on_fetchChaptersList = function (novelName, next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_fetchNovelChapters.html', 'utf8', function (err, data) {
@@ -89,7 +89,7 @@ mock_nrUtility.on_fetchChaptersList = function (novelName, next) {
     });
 };
 
-//Chapter
+// Chapter
 mock_nrUtility.on_fetchChapter = function (novelName, next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_chapter.html', 'utf8', function (err, data) {
@@ -110,7 +110,28 @@ mock_nrUtility.on_fetchChapter = function (novelName, next) {
     });
 };
 
-//Search
+// searchFilter
+mock_nrUtility.on_searchFilter = function (next) {
+
+    fs.readFile('./private/demopages/onlinenovelreader_detailed_search.html', 'utf8', function (err, data) {
+
+        if (err) {
+            //debug(err);
+            next({error: 'Not able to find the filter'});
+        }
+
+        var filter = novelParser.parse_OnlineNovelReader_searchFilter(data);
+
+        if (filter.length === 0) {
+            next({error: 'Not able to find the filter'});
+        }
+        else {
+            return next( {response: filter} );
+        }
+    });
+};
+
+// Search
 mock_nrUtility.on_searchNovel = function (searchQuery, next) {
 
     fs.readFile('./private/demopages/onlinenovelreader_detailed_search.html', 'utf8', function (err, data) {
