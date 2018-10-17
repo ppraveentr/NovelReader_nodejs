@@ -68,6 +68,70 @@ nrUtility.nr_postRequest = request.defaults({
 });
 
 // URL: http://onlinenovelreader.com
+
+// All available novels
+nrUtility.parse_OnlineNovelReader_details = function ($, novelDetails, novel) {
+
+    var param = new nrUtility.novelObject();
+    param.summary = '';
+
+    $(novelDetails).children().filter(function(i, liResult) {
+
+        if ($(liResult).attr('class') === 'novel-detail-header') {
+            $(liResult).children().filter(function(i, header) {
+                // Header Title
+                var title = $(header).text().toString();
+                if (title !== '') {
+                    param.title = title;
+                }
+            });
+        }
+
+        else if ($(liResult).attr('class') === 'novel-detail-body') {
+
+            var detailBody = $(this).text().toString();
+            // Update local Value
+            if (param.title === 'Total Views') {
+                if (detailBody !== '' && detailBody !== 'N/A') {
+                    novel.views = detailBody;
+                }
+            }
+            else if (param.title === 'Rating') {
+                if (detailBody !== '' && detailBody !== 'N/A') {
+                    novel.rating = detailBody;
+                }
+            }
+            // Parse child Element
+            else {
+                $(liResult).children().filter(function(i, body) {
+
+                    // Header Body
+                    var body = $(body).text().toString();
+                    if (body !== '' && body !== 'N/A') {
+
+                        // Update local Value
+                        if (param.title === 'Description') {
+                            param.summary += body + " ";
+                        }
+                        // Update Root object directly
+                        else if (param.title === 'Status') {
+                            novel.status = body;
+                        }
+                    }
+                });
+            }
+
+        }
+
+    });
+
+    // Update Root, only if empty
+    if (param.title === 'Description' && param.description !== '' && novel.summary === '') {
+        novel.summary = param.summary
+    }
+
+}
+
 // All available novels
 nrUtility.parse_OnlineNovelReader_allList = function (html) {
 
@@ -303,20 +367,20 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
         decodeEntities: true
     });
 
-    var novels = new nrUtility.novelObject();
-    novels.chapters = [];
+    var novel = new nrUtility.novelObject();
+    novel.chapters = [];
 
     // Novel Name
     $('div.block-title').each(function (i, titleElement) {
         $(titleElement).children().filter(function(i, liResult) {
             var name = $(liResult).text().toString();
             if (liResult.name === 'h1' && name !== '' ){
-                novels.name = name;
+                novel.name = name;
             }
         });
     });
 
-    //Novel Cover
+    // Novel Cover
     $('div.novel-cover').each(function (i, coverElement) {
         $(coverElement).children().filter(function(i, liResult) {
             if (liResult.name === 'a'){
@@ -324,14 +388,19 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
                     //Cover URL
                     var hrefValue = $(this).attr('src');
                     if (hrefValue) {
-                        novels.image = hrefValue;
+                        novel.image = hrefValue;
                     }
                 });
             }
         });
     });
 
-    //Novel Chapters
+    // Novel Detail
+    $('div.novel-detail-item').each(function (i, coverElement) {
+        nrUtility.parse_OnlineNovelReader_details($, coverElement, novel);
+    });
+
+    // Novel Chapters
     $('ul.chapter-chs').each(function (i, novelElement) {
         $(novelElement).children().filter(function(i, liResult) {
             var object = new nrUtility.novelObject();
@@ -343,13 +412,13 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
                     object.identifier = encode(hrefValue);
                     //Chapter Name
                     object.name = $(this).text().toString();
-                    novels.chapters.push(object);
+                    novel.chapters.push(object);
                 }
             });
         });
     });
 
-    return novels;
+    return novel;
 };
 
 // Chapter
