@@ -2,8 +2,8 @@ var express = require('express');
 var apicache = require('apicache');
 var router = express.Router();
 
-// var utility = require('../private/onlineNovelUtility');
-var utility = require('../private/mock_onlineNovel');
+var utility = require('../private/onlineNovelUtility');
+// var utility = require('../private/mock_onlineNovel');
 var cache = apicache.middleware;
 
 /* GET novel/list listing. */
