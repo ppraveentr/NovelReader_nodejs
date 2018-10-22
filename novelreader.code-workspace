@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.view.alwaysShowHeaderActions": true,
+		"breadcrumbs.enabled": true
+	}
+}

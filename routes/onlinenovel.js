@@ -2,11 +2,12 @@ var express = require('express');
 var apicache = require('apicache');
 var router = express.Router();
 
-var utility = require('../private/onlineNovelUtility');
+// var utility = require('../private/onlineNovelUtility');
+var utility = require('../private/mock_onlineNovel');
 var cache = apicache.middleware;
 
 /* GET novel/list listing. */
-router.get('/list', cache('5 minutes') ,function(req, res) {
+router.get('/list' ,function(req, res) {
 
     utility.on_fetchNovelList(function(novelList){
         res.send(novelList);
@@ -24,7 +25,7 @@ router.get('/recentupdates', function(req, res) {
 });
 
 /* GET novel/top-list listing. */
-router.get('/top-list/:page?', cache('5 minutes') ,function(req, res) {
+router.get('/top-list/:page?',function(req, res) {
 
     utility.on_fetchTopNovelList(function(novelList){
         res.send(novelList);
@@ -33,7 +34,7 @@ router.get('/top-list/:page?', cache('5 minutes') ,function(req, res) {
 });
 
 /* GET novel/chapters-list listing. */
-router.get('/chapters-list/:id?', cache('5 minutes') ,function(req, res) {
+router.get('/chapters-list/:id?' ,function(req, res) {
 
     var novelName = req.query.id;
 
