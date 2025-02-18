@@ -4,18 +4,17 @@ novelParser = require('./onlineNovelParser');
 
 var mock_nrUtility = {};
 
-// URL: http://onlinenovelreader.com
-// All available novels
-mock_nrUtility.on_fetchNovelList = function (next) {
+// URL: https://novelfull.net
+var parseNovelList = function (file, next) {
 
-    fs.readFile('./private/demopages/onlinenovelreader_novellist.html', 'utf8', function (err, data) {
+    fs.readFile(file, 'utf8', function (err, data) {
 
         if (err) {
-            //debug(err);
             next({error: 'Not able to find the keyword'});
+            return;
         }
 
-        var novelListPage = novelParser.parse_OnlineNovelReader_allList(data);
+        var novelListPage = novelParser.parse_novel_list(data);
 
         if (novelListPage.length === 0) {
             next({error: 'Not able to find the keyword'});
@@ -24,61 +23,35 @@ mock_nrUtility.on_fetchNovelList = function (next) {
             next({response: novelListPage});
         }
     });
+};
+
+// All available novels
+mock_nrUtility.on_fetchCompletedNovelList = function (query, next) {
+    parseNovelList('./private/demopages/novellist.html', next);
 };
 
 // Top NovelList
-mock_nrUtility.on_fetchTopNovelList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_topNovel.html', 'utf8', function (err, data) {
-
-        if (err) {
-            //debug(err);
-            next({error: 'Not able to find the keyword'});
-        }
-
-        var novelListPage = novelParser.parse_OnlineNovelReader_topNovelList(data);
-
-        if (novelListPage.length === 0) {
-            next({error: 'Not able to find the keyword'});
-        }
-        else {
-            next({response: novelListPage});
-        }
-    });
+mock_nrUtility.on_fetchTopNovelList = function (query, next) {
+    parseNovelList('./private/demopages/novellist.html', next);
 };
 
 // Latest NovelList
-mock_nrUtility.on_fetchRecentNovelList = function (next) {
-
-    fs.readFile('./private/demopages/onlinenovelreader_recentList.html', 'utf8', function (err, data) {
-
-        if (err) {
-            //debug(err);
-            next({error: 'Not able to find the keyword'});
-        }
-
-        var novelListPage = novelParser.parse_OnlineNovelReader_recentNovelList(data);
-
-        if (novelListPage.length === 0) {
-            next({error: 'Not able to find the keyword'});
-        }
-        else {
-            next({response: novelListPage});
-        }
-    });
+mock_nrUtility.on_fetchRecentNovelList = function (query, next) {
+    parseNovelList('./private/demopages/novellist.html', next);
 };
 
-// Chapters-list
-mock_nrUtility.on_fetchChaptersList = function (novelName, next) {
+// Novel Details
+mock_nrUtility.on_fetchNovelDetails = function (novelName, next) {
 
-    fs.readFile('./private/demopages/onlinenovelreader_fetchNovelChapters.html', 'utf8', function (err, data) {
+    fs.readFile('./private/demopages/novelDetails.html', 'utf8', function (err, data) {
 
         if (err) {
             //debug(err);
             next({error: 'Not able to find the keyword'});
+            return;
         }
 
-        var novelListPage = novelParser.parse_OnlineNovelReader_chaptersList(data);
+        var novelListPage = novelParser.parse_novel_details(data);
 
         if (novelListPage.length === 0) {
             next({error: 'Not able to find the keyword'});
@@ -92,14 +65,14 @@ mock_nrUtility.on_fetchChaptersList = function (novelName, next) {
 // Chapter
 mock_nrUtility.on_fetchChapter = function (novelName, next) {
 
-    fs.readFile('./private/demopages/onlinenovelreader_chapter.html', 'utf8', function (err, data) {
+    fs.readFile('./private/demopages/novelChapter.html', 'utf8', function (err, data) {
 
         if (err) {
-            //debug(err);
             next({error: 'Not able to find the keyword'});
+            return;
         }
 
-        var novelListPage = novelParser.parse_OnlineNovelReader_chapter(data);
+        var novelListPage = novelParser.parse_novel_chapter(data);
 
         if (novelListPage.length === 0) {
             next({error: 'Not able to find the keyword'});
@@ -116,8 +89,8 @@ mock_nrUtility.on_searchFilter = function (next) {
     fs.readFile('./private/demopages/onlinenovelreader_detailed_search.html', 'utf8', function (err, data) {
 
         if (err) {
-            //debug(err);
             next({error: 'Not able to find the filter'});
+            return;
         }
 
         var filter = novelParser.parse_OnlineNovelReader_searchFilter(data);
@@ -137,8 +110,8 @@ mock_nrUtility.on_searchNovel = function (searchQuery, next) {
     fs.readFile('./private/demopages/onlinenovelreader_detailed_search.html', 'utf8', function (err, data) {
 
         if (err) {
-            //debug(err);
             next({error: 'Not able to find the keyword'});
+            return;
         }
 
         var novelListPage = novelParser.parse_OnlineNovelReader_search(data);
@@ -151,29 +124,5 @@ mock_nrUtility.on_searchNovel = function (searchQuery, next) {
         }
     });
 };
-
-/*
-//UNUSED
-//URL: http://novelonlinefree.info
-nrUtility.mock_NovelOnlineFreeList = function (next) {
-
-    fs.readFile('./private/demopages/Novellist.html', 'utf8', function (err,data) {
-
-        if (err) {
-            debug(err);
-            next( { error: 'Not able to find the keyword' } );
-        }
-
-        var novelList = nrUtility.parse_NovelOnlineFreeList(data);
-
-        if (novelList.length === 0) {
-            next( { error: 'Not able to find the keyword' } );
-        }
-        else {
-            next(novelList);
-        }
-    });
-};
-*/
 
 module.exports = mock_nrUtility;

@@ -1,25 +1,28 @@
 var domParser = require('cheerio');
 var request = require('request');
+var qs = require('querystring');
 
 var nrUtility = {};
 
-var on_baseURL = "http://onlinenovelreader.com/";
-nrUtility.on_novelList = on_baseURL + "novel-list";
-nrUtility.on_latestUpdate = on_baseURL + "latest-updates";
-nrUtility.on_topList = on_baseURL + "top-novel";
-// var on_topRated = on_baseURL + "?change_type=top_rated";
-nrUtility.on_search = on_baseURL + "detailed-search";
+var on_baseURL = "https://novelfull.net";
+nrUtility.on_completedList = on_baseURL + "/completed-novel";
+nrUtility.on_latestUpdate = on_baseURL + "/latest-release-novel";
+nrUtility.on_topList = on_baseURL + "/most-popular";
+nrUtility.on_search = on_baseURL + "/search";
 nrUtility.chpaters = on_baseURL;
 
 // Novel Object: Definition
 nrUtility.novelObject = function () {
-    /*this.name = '';
+    /*
+    this.name = '';
     this.author = '';
     this.artist = '';
+    this.source = '';
     this.status = '';
     this.type = '';
     this.identifier = '';
     this.image = '';
+    this.coverImage = '';
     this.rating = '';
     this.lastUpdate = '';
     this.genres = '';
@@ -29,7 +32,7 @@ nrUtility.novelObject = function () {
     this.chapters = '';
 
     this.shortTitle = '';
-    this.shortTitle = '';
+    this.lastChapter = '';
     */
 };
 
@@ -46,10 +49,9 @@ var encode = function (string) {
 // String Decoding
 nrUtility.decode = function (string) {
     return Buffer.from(string, 'base64').toString('utf8');
-
 };
 
-// Novel reader, default 'request'
+// default 'request'
 nrUtility.nr_novelListRequest = request.defaults({
     method : 'GET',
     headers: {
@@ -58,7 +60,15 @@ nrUtility.nr_novelListRequest = request.defaults({
     }
 });
 
-// Novel reader, default 'request'
+// GET request, 'url' + '?' + 'query'
+nrUtility.getRequest = function (url, query) {
+    if (Object.keys(query).length > 0) {
+        return url + '?' + qs.stringify(query)
+    }
+    return url
+};
+
+// default 'request'
 nrUtility.nr_postRequest = request.defaults({
     method : 'POST',
     headers: {
@@ -67,73 +77,8 @@ nrUtility.nr_postRequest = request.defaults({
     }
 });
 
-// URL: http://onlinenovelreader.com
-
 // All available novels
-nrUtility.parse_OnlineNovelReader_details = function ($, novelDetails, novel) {
-
-    var param = new nrUtility.novelObject();
-    param.summary = '';
-
-    $(novelDetails).children().filter(function(i, liResult) {
-
-        if ($(liResult).attr('class') === 'novel-detail-header') {
-            $(liResult).children().filter(function(i, header) {
-                // Header Title
-                var title = $(header).text().toString();
-                if (title !== '') {
-                    param.title = title;
-                }
-            });
-        }
-
-        else if ($(liResult).attr('class') === 'novel-detail-body') {
-
-            var detailBody = $(this).text().toString();
-            // Update local Value
-            if (param.title === 'Total Views') {
-                if (detailBody !== '' && detailBody !== 'N/A') {
-                    novel.views = detailBody;
-                }
-            }
-            else if (param.title === 'Rating') {
-                if (detailBody !== '' && detailBody !== 'N/A') {
-                    novel.rating = detailBody;
-                }
-            }
-            // Parse child Element
-            else {
-                $(liResult).children().filter(function(i, body) {
-
-                    // Header Body
-                    var body = $(body).text().toString();
-                    if (body !== '' && body !== 'N/A') {
-
-                        // Update local Value
-                        if (param.title === 'Description') {
-                            param.summary += body + " ";
-                        }
-                        // Update Root object directly
-                        else if (param.title === 'Status') {
-                            novel.status = body;
-                        }
-                    }
-                });
-            }
-
-        }
-
-    });
-
-    // Update Root, only if empty
-    if (param.title === 'Description' && param.description !== '' && novel.summary === '') {
-        novel.summary = param.summary
-    }
-
-}
-
-// All available novels
-nrUtility.parse_OnlineNovelReader_allList = function (html) {
+nrUtility.parse_novel_list = function (html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -143,223 +88,53 @@ nrUtility.parse_OnlineNovelReader_allList = function (html) {
 
     var novels = [];
 
-    function createNovelElement(element, obj) {
-
-        $(element).children().filter(function(i, el) {
-
-            if ($(el).attr('class') === 'pop-block') {
-                createNovelElement(el, obj);
-            }
-            else if ($(el).attr('class') === 'pop-header') {
-                obj.name = $(this).text().toString();
-            }
-            //For cover image
-            else if ($(el).attr('class') === 'pop-container') {
-                createNovelElement(el, obj);
-            }
-            //For cover image
-            else if ($(el).attr('class') === 'pop-body') {
-                createNovelElement(el, obj);
-            }
-            //For cover image
-            else if ($(el).attr('class') === 'pop-cover') {
-                $(el).children().filter(function(i, imgEl){
-                    if ($(imgEl).attr('src') !== null) {
-                        obj.image = $(imgEl).attr('src');
-                    }
-                });
-            }
-            //For cover image
-            else if ($(el).attr('class') === 'pop-summary') {
-                obj.summary = $(this).text().toString().trimLeft().trimRight();
-            }
-            //For cover image
-            else if ($(el).attr('class') === 'pop-rating') {
-
-                $(el).children().filter(function(i, ratingBox){
-                    //Eg. Int Value
-                    if ($(ratingBox).attr('class') === 'pop-rating-box') {
-                        obj.rating = $(ratingBox).text().toString();
-                    }
-                    //Eg. Web novel, Light Novel
-                    else if ($(ratingBox).attr('class') === 'text') {
-                        obj.type = $(ratingBox).text().toString();
-                    }
-                });
-            }
-            //For Views count
-            else if ($(el).attr('class') === 'pop-genres') {
-                var viewCount = $(this).text().toString();
-                viewCount = viewCount.replace("Views:", "").trim();
-                obj.views = viewCount;
-            }
-
-            return el;
-        });
-    }
-
-    $('div.list-by-word-body').each(function(i, ulResult) {
-
-        $(ulResult).children().filter(function(i, liResult) {
-
-            $(liResult).children().filter(function(i, obj) {
-
-                var object = new nrUtility.novelObject();
-
-                $(obj).children().filter(function(i, el) {
-
-                    var hrefValue = $(el).attr('href');
-                    if (hrefValue) {
-                        object.identifier = encode(hrefValue);
-                    }
-                    else if ($(el).attr('class') === 'popover') {
-                        createNovelElement(el, object);
-                    }
-
-                    return el;
-                });
-
-                novels.push(object);
-            });
-
-            return liResult;
-        });
-
-    });
-
-    return novels;
-};
-
-// Top NovelList
-nrUtility.parse_OnlineNovelReader_topNovelList = function (html) {
-
-    var $ = domParser.load(html, {
-        ignoreWhitespace: true,
-        xmlMode: true,
-        decodeEntities: true
-    });
-
-    var novels = [];
-
-    function createNovelElement(element, obj) {
-
-        $(element).children().filter(function(i, el) {
-
-            //Title
-            if ($(this).hasClass('top-novel-header')) {
-                $(this).children().filter(function(i, el) {
-                    var name = $(this).text().toString();
-                    if (el.name === 'h2' && name !== '' ){
-                        obj.name = name;
-                    }
-                });
-            }
-            //Content
-            else if ($(this).hasClass('top-novel-content')) {
-                createNovelElement(this, obj);
-            }
-            else if ($(this).hasClass('top-novel-body')) {
-                createNovelElement(this, obj);
-            }
-            else if ( $(this).hasClass('novel-item')) {
-
-                $(this).children().filter(function(i, el) {
-                    //Novel URL
-                    var label = $(this).text().toString();
-                    if (label === 'Author:') {
-                        obj.author = $(this).next().text().toString()
-                    }
-                    else if (label === 'Artist:') {
-                        obj.artist = $(this).next().text().toString()
-                    }
-                    else if (label === 'Status:') {
-                        obj.status = $(this).next().text().toString()
-                    }
-                    else if (label === 'Type:') {
-                        obj.type = $(this).next().text().toString()
-                    }
-                    else if (label === 'Genre:') {
-                        obj.genres = [$(this).next().text().toString()]
-                    }
-                });
-            }
-            else if ($(this).hasClass('top-novel-cover')) {
-                $(this).children().filter(function(i, el) {
-                    //Novel URL
-                    var hrefValue = $(this).attr('href');
-                    if (hrefValue) {
-                        obj.identifier = encode(hrefValue);
-                    }
-                    //Novel Cover Image
-                    $(this).children().filter(function(i, img) {
-                        var imageUrl = $(img).attr('src');
-                        if (img.name === 'img' && imageUrl !== '' ){
-                            obj.image = imageUrl;
-                        }
-                    });
-                });
-            }
-        });
-    }
-
-
-    $('div.top-novel-block').each(function (i, novelElement) {
+    $('#list-page > .col-truyen-main > .list-truyen > .row').each(function(i, chResult) {
 
         var object = new nrUtility.novelObject();
 
-        createNovelElement(novelElement, object);
+        $(chResult).children().filter(function(i, obj) {
 
-        if (object.hasOwnProperty('name') && object.name.length > 0) {
-            novels.push(object);
-        }
-    });
-
-    return novels;
-};
-
-// Latest NovelList
-nrUtility.parse_OnlineNovelReader_recentNovelList = function (html) {
-
-    const $ = domParser.load(html, {
-        ignoreWhitespace: true,
-        xmlMode: true,
-        decodeEntities: true
-    });
-
-    var novels = [];
-
-    $('div.list-by-word-body').each(function (i, novelElement) {
-
-        $(novelElement).children().filter(function(i, liResult) {
-
-            $(liResult).children().filter(function(i, obj) {
-
-                var object = new nrUtility.novelObject();
-
-                $(obj).children().filter(function(i, novel) {
-
-                    var hrefValue = $(novel).attr('href');
-                    if (hrefValue) {
-                        object.identifier = encode(hrefValue);
-                        object.name = $(this).text().toString();
-                    }
-                    else if ($(this).hasClass('list_chapter_date')) {
-                        object.lastUpdate = $(this).text().toString();
-                    }
-                });
-
-                if (object.hasOwnProperty('identifier') && object.identifier.length > 0) {
-                    novels.push(object);
+            // Image
+            if ($(obj).hasClass('col-xs-3')) {
+                var coverImage = $(obj).find('img')
+                if ($(coverImage).attr('src') !== null) {
+                    object.image = on_baseURL + $(coverImage).attr('src');
                 }
-            });
+            } 
+            // Title
+            else if ($(obj).hasClass('col-xs-7')) {
+                // Title
+                var title = $(obj).find('*[class^="truyen-title"]').find('a')
+                var hrefValue = $(title).attr('href');
+                if (hrefValue) {
+                    object.identifier = encode(hrefValue);
+                    object.name = $(title).text().toString();
+                }
+
+                // Author
+                var author = $(obj).find('*[class^="author"]').text().trim();
+                if (author !== '') {
+                    object.author = author;
+                }
+            }
+            // Chapters
+            else if ($(obj).hasClass('col-xs-2')) {
+                var chapter = $(obj).find('*[class^="chapter-text"]').text().trim();
+                if (chapter !== '') {
+                    object.lastChapter = chapter.replace('&nbsp;', '');
+                }
+            }
         });
+
+        novels.push(object);
+
     });
 
     return novels;
 };
 
 // Chapters-list
-nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
+nrUtility.parse_novel_details = function (html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -371,50 +146,59 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
     novel.chapters = [];
 
     // Novel Name
-    $('div.block-title').each(function (i, titleElement) {
-        $(titleElement).children().filter(function(i, liResult) {
-            var name = $(liResult).text().toString();
-            if (liResult.name === 'h1' && name !== '' ){
-                novel.name = name;
-            }
-        });
-    });
+    var titleEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.books > div.desc > h3"
+    var name = $(titleEle).text().toString();
+    if (name !== '' ){
+        novel.name = name;
+    }
 
     // Novel Cover
-    $('div.novel-cover').each(function (i, coverElement) {
-        $(coverElement).children().filter(function(i, liResult) {
-            if (liResult.name === 'a'){
-                $(liResult).children().filter(function(i, cover) {
-                    //Cover URL
-                    var hrefValue = $(this).attr('src');
-                    if (hrefValue) {
-                        novel.image = hrefValue;
-                    }
+    var imageEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.books > div.book"
+    var coverImage = $(imageEle).find('img').attr('src');
+    if (coverImage !== null) {
+        novel.coverImage = on_baseURL + coverImage
+    }
+
+    // Novel Info
+    var infoEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.info"
+    $(infoEle).each(function (i, infoElement) {
+        $(infoElement).children().filter(function(i, liResult) {
+            var label = $(liResult).find('h3').text().toString();
+            if (label === 'Author:') {
+                novel.author = $(this).text().toString().replace('Author:', '')
+            }
+            else if (label === 'Genre:') {
+                novel.genres = $(this).text().toString().replace('Genre:', '').split(',')
+                novel.genres = novel.genres.map(function (genre) {
+                    return genre.trim();
                 });
+            }
+            else if (label === 'Source:') {
+                novel.source = $(this).text().toString().replace('Source:', '')
+            }
+            else if (label === 'Status:') {
+                novel.status = $(this).text().toString().replace('Status:', '')
             }
         });
     });
 
     // Novel Detail
-    $('div.novel-detail-item').each(function (i, coverElement) {
-        nrUtility.parse_OnlineNovelReader_details($, coverElement, novel);
-    });
+    var descText = '#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-md-8.desc > div.desc-text'
+    novel.summary = $(descText).text().toString();
 
     // Novel Chapters
-    $('ul.chapter-chs').each(function (i, novelElement) {
+    var chapterEle = '#list-chapter > div.row > div > ul.list-chapter > li'
+    $(chapterEle).each(function (i, novelElement) {
         $(novelElement).children().filter(function(i, liResult) {
-            var object = new nrUtility.novelObject();
-            $(liResult).children().filter(function(i, obj) {
-
-                var hrefValue = $(this).attr('href');
-                if (hrefValue) {
+            var hrefValue = $(this).attr('href');
+                if (hrefValue !== undefined && hrefValue !== null && hrefValue !== '') {
+                    var object = new nrUtility.novelObject();
                     //Chapter URL
-                    object.identifier = encode(hrefValue);
-                    //Chapter Name
+                    object.identifier = encode(on_baseURL + hrefValue);
+                    // //Chapter Name
                     object.name = $(this).text().toString();
                     novel.chapters.push(object);
                 }
-            });
         });
     });
 
@@ -422,7 +206,7 @@ nrUtility.parse_OnlineNovelReader_chaptersList = function (html) {
 };
 
 // Chapter
-nrUtility.parse_OnlineNovelReader_chapter = function (html) {
+nrUtility.parse_novel_chapter = function (html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -433,22 +217,13 @@ nrUtility.parse_OnlineNovelReader_chapter = function (html) {
     var novelChapter = new nrUtility.novelObject();
     var content = '';
 
-    $('div.chapter-content3').each(function (i, novelElement) {
-
-        $(novelElement).children().filter(function(i, liResult) {
-
-            $(liResult).children().filter(function(i, obj) {
-
-                if (obj.name === 'h3') {
-                    novelChapter.shortTitle = $(obj).text().toString();
-                }
-                else if (obj.name === 'p') {
-                    content = content + '<p>' + $(obj).text().toString() + '</p>';
-                }
-
-            });
-        });
-    });
+    var chapterEle = '#chapter-content'
+    $('#chapter-content').find('p').each(function() {
+        var text = $(this).text().trim();
+        if (text !== '') {
+            content = content + '<p>' + text + '</p>';
+        }
+      });
 
     novelChapter.content = content;
 
@@ -457,7 +232,7 @@ nrUtility.parse_OnlineNovelReader_chapter = function (html) {
 
 // Search
 nrUtility.parse_OnlineNovelReader_search = function (html) {
-    var novelListPage = nrUtility.parse_OnlineNovelReader_topNovelList(html);
+    var novelListPage = nrUtility.parse_novel_list(html);
     return novelListPage;
 };
 
@@ -544,86 +319,6 @@ nrUtility.parse_OnlineNovelReader_searchFilter = function (html) {
 
     return object;
 };
-
-/*
-//UNUSED
-//URL: http://novelonlinefree.info
-nrUtility.parse_NovelOnlineFreeList = function (html) {
-
-    var $ = domParser.load(html, {
-        ignoreWhitespace: true,
-        xmlMode: true
-    });
-
-    var novels = [];
-
-    $('div.update_item').each(function(i, result) {
-
-        var object = {
-            name: $(result).attr('title'),
-            url: '',
-            image: '',
-            lastChapter: [],
-            updatetime: '',
-            view: ''
-        };
-
-        function updateNovelURL(element) {
-            if (object.name === null || object.name === undefined) {
-                object.name = $(element).attr('title');
-            }
-            object.identifier = $(element).attr('href');
-
-            $(element).children().filter(function(i, el){
-                if ($(el).attr('src') !== null) {
-                    object.image = $(el).attr('src');
-                }
-            });
-        }
-
-        function updateChapter(element) {
-
-            var chapter = {
-                name: $(element).attr('title'),
-                url: $(element).attr('href')
-            };
-
-            if (object.name !== null && chapter.name !== null) {
-                chapter.name = chapter.name.replace(object.name + " ", '')
-            }
-
-            object.lastChapter.push(chapter);
-        }
-
-        $(result).children().filter(function(i, el) {
-
-            if ($(el).attr('rel') === 'nofollow') {
-                updateNovelURL(el);
-            }
-            else if ($(el).attr('class') === 'chapter') {
-                updateChapter(el);
-            }
-            else {
-
-                var text = $(this).text().toString();
-
-                if (text.indexOf('Last updated :', 0) === 0) {
-                    object.updatetime = text
-                }
-                else if (text.indexOf('View :', 0) === 0) {
-                    object.view = text
-                }
-            }
-
-            return el;
-        });
-
-        novels.push(object);
-    });
-
-    return novels;
-};
-*/
 
 //Search Novel
 nrUtility.normalize_searchString = function (alias) {

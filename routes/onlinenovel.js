@@ -7,18 +7,16 @@ var utility = require('../private/onlineNovelUtility');
 var cache = apicache.middleware;
 
 /* GET novel/list listing. */
-router.get('/list' ,function(req, res) {
-
-    utility.on_fetchNovelList(function(novelList){
+router.get('/list/:page?' ,function(req, res) {
+    utility.on_fetchCompletedNovelList(req.query, function(novelList) {
         res.send(novelList);
         res.end();
     });
 });
 
 /* GET novel/recentupdates listing. */
-router.get('/recentupdates', function(req, res) {
-
-    utility.on_fetchRecentNovelList(function(recentList){
+router.get('/recentupdates/:page?', function(req, res) {
+    utility.on_fetchRecentNovelList(req.query, function(recentList) {
         res.send(recentList);
         res.end();
     });
@@ -26,19 +24,18 @@ router.get('/recentupdates', function(req, res) {
 
 /* GET novel/top-list listing. */
 router.get('/top-list/:page?',function(req, res) {
-
-    utility.on_fetchTopNovelList(function(novelList){
+    utility.on_fetchTopNovelList(req.query, function(novelList) {
         res.send(novelList);
         res.end();
     });
 });
 
-/* GET novel/chapters-list listing. */
-router.get('/chapters-list/:id?' ,function(req, res) {
+/* GET novel/novel-details listing. */
+router.get('/novel-details/:id?' ,function(req, res) {
 
     var novelName = req.query.id;
 
-    utility.on_fetchChaptersList(novelName, function(novelList){
+    utility.on_fetchNovelDetails(novelName, function(novelList) {
         res.send(novelList);
         res.end();
     });
@@ -49,7 +46,7 @@ router.get('/chapter/:id?', function(req, res) {
 
     var novelName = req.query.id;
 
-    utility.on_fetchChapter(novelName, function(novelList){
+    utility.on_fetchChapter(novelName, function(novelList) {
         res.send(novelList);
         res.end();
     });
@@ -58,7 +55,7 @@ router.get('/chapter/:id?', function(req, res) {
 /* GET novel/search-filter. */
 router.get('/search-filter', function(req, res) {
 
-    utility.on_searchFilter(function(filter){
+    utility.on_searchFilter(function(filter) {
         res.send(filter);
         res.end();
     });
@@ -69,7 +66,7 @@ router.post('/search', function(req, res) {
 
     var searchQuery = req.body;
 
-    utility.on_searchNovel(searchQuery, function(novelList){
+    utility.on_searchNovel(searchQuery, function(novelList) {
         res.send(novelList);
         res.end();
     });
