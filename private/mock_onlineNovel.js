@@ -41,7 +41,7 @@ mock_nrUtility.on_fetchRecentNovelList = function (query, next) {
 };
 
 // Novel Details
-mock_nrUtility.on_fetchNovelDetails = function (novelName, next) {
+mock_nrUtility.on_fetchNovelDetails = function (identifier, next) {
 
     fs.readFile('./private/demopages/novelDetails.html', 'utf8', function (err, data) {
 
@@ -51,7 +51,7 @@ mock_nrUtility.on_fetchNovelDetails = function (novelName, next) {
             return;
         }
 
-        var novelListPage = novelParser.parse_novel_details(data);
+        var novelListPage = novelParser.parse_novel_details(identifier, data);
 
         if (novelListPage.length === 0) {
             next({error: 'Not able to find the keyword'});
@@ -63,7 +63,7 @@ mock_nrUtility.on_fetchNovelDetails = function (novelName, next) {
 };
 
 // Chapter
-mock_nrUtility.on_fetchChapter = function (novelName, next) {
+mock_nrUtility.on_fetchChapter = function (identifier, next) {
 
     fs.readFile('./private/demopages/novelChapter.html', 'utf8', function (err, data) {
 
@@ -72,7 +72,7 @@ mock_nrUtility.on_fetchChapter = function (novelName, next) {
             return;
         }
 
-        var novelListPage = novelParser.parse_novel_chapter(data);
+        var novelListPage = novelParser.parse_novel_chapter(identifier, data);
 
         if (novelListPage.length === 0) {
             next({error: 'Not able to find the keyword'});

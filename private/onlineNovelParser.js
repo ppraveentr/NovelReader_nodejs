@@ -19,7 +19,6 @@ nrUtility.novelObject = function () {
     this.artist = '';
     this.source = '';
     this.status = '';
-    this.type = '';
     this.identifier = '';
     this.image = '';
     this.coverImage = '';
@@ -31,7 +30,6 @@ nrUtility.novelObject = function () {
     this.summary = '';
     this.chapters = '';
 
-    this.shortTitle = '';
     this.lastChapter = '';
     */
 };
@@ -134,7 +132,7 @@ nrUtility.parse_novel_list = function (html) {
 };
 
 // Chapters-list
-nrUtility.parse_novel_details = function (html) {
+nrUtility.parse_novel_details = function (identifier, html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -143,6 +141,7 @@ nrUtility.parse_novel_details = function (html) {
     });
 
     var novel = new nrUtility.novelObject();
+    novel.identifier = identifier;
     novel.chapters = [];
 
     // Novel Name
@@ -194,7 +193,7 @@ nrUtility.parse_novel_details = function (html) {
                 if (hrefValue !== undefined && hrefValue !== null && hrefValue !== '') {
                     var object = new nrUtility.novelObject();
                     //Chapter URL
-                    object.identifier = encode(on_baseURL + hrefValue);
+                    object.identifier = encode(hrefValue);
                     // //Chapter Name
                     object.name = $(this).text().toString();
                     novel.chapters.push(object);
@@ -206,7 +205,7 @@ nrUtility.parse_novel_details = function (html) {
 };
 
 // Chapter
-nrUtility.parse_novel_chapter = function (html) {
+nrUtility.parse_novel_chapter = function (identifier, html) {
 
     var $ = domParser.load(html, {
         ignoreWhitespace: true,
@@ -215,6 +214,7 @@ nrUtility.parse_novel_chapter = function (html) {
     });
 
     var novelChapter = new nrUtility.novelObject();
+    novelChapter.identifier = identifier;
     var content = '';
 
     var chapterEle = '#chapter-content'
