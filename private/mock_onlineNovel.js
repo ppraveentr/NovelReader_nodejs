@@ -41,7 +41,7 @@ mock_nrUtility.on_fetchRecentNovelList = function (query, next) {
 };
 
 // Novel Details
-mock_nrUtility.on_fetchNovelDetails = function (identifier, next) {
+mock_nrUtility.on_fetchNovelDetails = function (identifier, page, next) {
 
     fs.readFile('./private/demopages/novelDetails.html', 'utf8', function (err, data) {
 
@@ -58,6 +58,28 @@ mock_nrUtility.on_fetchNovelDetails = function (identifier, next) {
         }
         else {
             return next({response: novelListPage});
+        }
+    });
+};
+
+// Novel Chapter List
+mock_nrUtility.on_fetchChapterList = function (identifier, page, next) {
+
+    fs.readFile('./private/demopages/novelDetails.html', 'utf8', function (err, data) {
+
+        if (err) {
+            //debug(err);
+            next({error: 'Not able to find the chapters'});
+            return;
+        }
+
+        var novelChapterList = novelParser.parse_novel_chapter_list(identifier, page, data);
+
+        if (novelChapterList.length === 0) {
+            next({error: 'Not able to find the chapters'});
+        }
+        else {
+            return next({response: novelChapterList});
         }
     });
 };

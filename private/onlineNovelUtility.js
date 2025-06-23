@@ -37,9 +37,12 @@ onUtility.on_fetchTopNovelList = function (query, next) {
     fetchNovelList(nrUtility.on_topList, query, next);
 };
 
-onUtility.on_fetchNovelDetails = function (identifier, next) {
+onUtility.on_fetchNovelDetails = function (identifie, query, next) {
 
-    nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(identifier)}, function (error, response, body) {
+    var url = nrUtility.novelDetails + nrUtility.decode(identifie);
+    var requestBody = nrUtility.getRequest(url, query)
+
+    nrUtility.nr_novelListRequest.get(requestBody, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 
@@ -58,9 +61,34 @@ onUtility.on_fetchNovelDetails = function (identifier, next) {
     });
 };
 
+onUtility.on_fetchChapterList = function (identifie, query, next) {
+
+    var url = nrUtility.novelDetails + nrUtility.decode(identifie);
+    var requestBody = nrUtility.getRequest(url, query)
+    var page = query.page;
+
+    nrUtility.nr_novelListRequest.get(requestBody, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+
+            var novelList = nrUtility.parse_novel_chapter_list(identifier, page, body);
+
+            if (novelList.length === 0) {
+                next( { error: 'Not able to find the chapter list' } );
+            }
+            else {
+                next( { response: novelList } );
+            }
+
+        }else{
+            next( { error: 'Not able to find the chapter list' } );
+        }
+    });
+};
+
 onUtility.on_fetchChapter = function (identifier, next) {
 
-    nrUtility.nr_novelListRequest.get({url: nrUtility.chpaters + nrUtility.decode(identifier)}, function (error, response, body) {
+    nrUtility.nr_novelListRequest.get({url: nrUtility.chapters + nrUtility.decode(identifier)}, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
 

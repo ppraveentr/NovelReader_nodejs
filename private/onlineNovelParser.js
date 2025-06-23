@@ -9,7 +9,7 @@ nrUtility.on_completedList = on_baseURL + "/completed-novel";
 nrUtility.on_latestUpdate = on_baseURL + "/latest-release-novel";
 nrUtility.on_topList = on_baseURL + "/most-popular";
 nrUtility.on_search = on_baseURL + "/search";
-nrUtility.chpaters = on_baseURL;
+nrUtility.chapters = on_baseURL;
 
 // Novel Object: Definition
 nrUtility.novelObject = function () {
@@ -20,7 +20,7 @@ nrUtility.novelObject = function () {
     this.source = '';
     this.status = '';
     this.identifier = '';
-    this.image = '';
+    this.imageUrl = '';
     this.coverImage = '';
     this.rating = '';
     this.lastUpdate = '';
@@ -31,6 +31,15 @@ nrUtility.novelObject = function () {
     this.chapters = '';
 
     this.lastChapter = '';
+    */
+};
+
+// Novel Object: Definition
+nrUtility.chapterPagination = function () {
+    /*
+    this.chapters = '';
+    this.pageCount = '';
+    this.pageCurrent = '';
     */
 };
 
@@ -94,9 +103,9 @@ nrUtility.parse_novel_list = function (html) {
 
             // Image
             if ($(obj).hasClass('col-xs-3')) {
-                var coverImage = $(obj).find('img')
-                if ($(coverImage).attr('src') !== null) {
-                    object.image = on_baseURL + $(coverImage).attr('src');
+                var image = $(obj).find('img')
+                if ($(image).attr('src') !== null) {
+                    object.imageUrl = on_baseURL + $(image).attr('src');
                 }
             } 
             // Title
@@ -119,7 +128,7 @@ nrUtility.parse_novel_list = function (html) {
             else if ($(obj).hasClass('col-xs-2')) {
                 var chapter = $(obj).find('*[class^="chapter-text"]').text().trim();
                 if (chapter !== '') {
-                    object.lastChapter = chapter.replace('&nbsp;', '');
+                    object.lastChapter = chapter.replace(/&nbsp;|\n/g, ' ').replace(/\s+/g, ' ').trim();
                 }
             }
         });
@@ -142,7 +151,6 @@ nrUtility.parse_novel_details = function (identifier, html) {
 
     var novel = new nrUtility.novelObject();
     novel.identifier = identifier;
-    novel.chapters = [];
 
     // Novel Name
     var titleEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.books > div.desc > h3"
@@ -155,7 +163,7 @@ nrUtility.parse_novel_details = function (identifier, html) {
     var imageEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.books > div.book"
     var coverImage = $(imageEle).find('img').attr('src');
     if (coverImage !== null) {
-        novel.coverImage = on_baseURL + coverImage
+        novel.coverImageUrl = on_baseURL + coverImage
     }
 
     // Novel Info
@@ -183,7 +191,38 @@ nrUtility.parse_novel_details = function (identifier, html) {
 
     // Novel Detail
     var descText = '#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-md-8.desc > div.desc-text'
-    novel.summary = $(descText).text().toString();
+    novel.summary = JSON.stringify($(descText).text().toString()).slice(1, -1);
+
+    novel.chapters = this.parse_novel_chapter_list(identifier, 1, html);
+
+    return novel;
+};
+
+// Chapter List
+nrUtility.parse_novel_chapter_list = function (identifier, page, html) {
+
+   var $ = domParser.load(html, {
+        ignoreWhitespace: true,
+        xmlMode: true,
+        decodeEntities: true
+    });
+
+   var pagination = new nrUtility.chapterPagination();
+    pagination.identifier = identifier;
+    pagination.chapters = [];
+
+    // Novel Page Count 
+    var pageDataCountEle = "#list-chapter > ul.pagination-sm > li.last > a"
+    var pageCount = $(pageDataCountEle).attr('data-page');
+    if (pageCount !== null && pageCount !== undefined) {
+        pagination.pageCount = parseInt(pageCount, 10);
+    }
+
+    var pageCurrentEle = "#list-chapter > ul.pagination-sm > li.active > a"
+    var currentPage = $(pageCurrentEle).attr('data-page');
+    if (currentPage !== null && currentPage !== undefined) {
+        pagination.currentPage = parseInt(currentPage, 10) + 1;
+    }
 
     // Novel Chapters
     var chapterEle = '#list-chapter > div.row > div > ul.list-chapter > li'
@@ -196,12 +235,19 @@ nrUtility.parse_novel_details = function (identifier, html) {
                     object.identifier = encode(hrefValue);
                     // //Chapter Name
                     object.name = $(this).text().toString();
-                    novel.chapters.push(object);
+                    // Parse chapter index from name, e.g., "Chapter 17 - ..."
+                    var match = object.name.match(/Chapter\s+(\d+)/i);
+                    if (match && match[1]) {
+                        object.index = parseInt(match[1], 10); // index as integer from chapter name
+                    } else {
+                        object.index = 0; // fallback
+                    }
+                    pagination.chapters.push(object);
                 }
         });
     });
 
-    return novel;
+    return pagination;
 };
 
 // Chapter
