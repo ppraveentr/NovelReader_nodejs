@@ -17,11 +17,12 @@
   },
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jest"
   },
   "dependencies": {
     "apicache": "^1.2.1",
-    "body-parser": "~1.18.2",
+    "body-parser": "^1.20.3",
     "cheerio": "^1.0.0-rc.12",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -34,5 +35,9 @@
     "request": "^2.88.2",
     "serve-favicon": "^2.5.0",
     "uid-safe": "^2.1.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.0"
   }
 }
