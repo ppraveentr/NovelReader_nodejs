@@ -5,6 +5,7 @@ var qs = require('querystring');
 var nrUtility = {};
 
 var on_baseURL = "https://novelfull.net";
+nrUtility.on_baseURL = on_baseURL;
 nrUtility.on_completedList = on_baseURL + "/completed-novel";
 nrUtility.on_latestUpdate = on_baseURL + "/latest-release-novel";
 nrUtility.on_topList = on_baseURL + "/most-popular";
@@ -63,7 +64,7 @@ nrUtility.nr_novelListRequest = request.defaults({
     method : 'GET',
     headers: {
         'content-type': 'text/html',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/21A372 Safari/604.1'
     }
 });
 
@@ -80,7 +81,7 @@ nrUtility.nr_postRequest = request.defaults({
     method : 'POST',
     headers: {
         "content-type": "application/x-www-form-urlencoded",
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/21A372 Safari/604.1'
     }
 });
 
@@ -166,6 +167,9 @@ nrUtility.parse_novel_details = function (identifier, html) {
         novel.coverImageUrl = on_baseURL + coverImage
     }
 
+    var novelDataIdEle = $("#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-md-8.desc > div.rate")
+    novel.novelDataId = $(novelDataIdEle).find('div#rating').attr("data-novel-id").toString();
+
     // Novel Info
     var infoEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.info-holder > div.info"
     $(infoEle).each(function (i, infoElement) {
@@ -193,7 +197,26 @@ nrUtility.parse_novel_details = function (identifier, html) {
     var descText = '#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-md-8.desc > div.desc-text'
     novel.summary = JSON.stringify($(descText).text().toString()).slice(1, -1);
 
-    novel.chapters = this.parse_novel_chapter_list(identifier, 1, html);
+    // Novel Rating
+    var ratingEle = "#truyen > div.csstransforms3d > div > div.col-xs-12.col-info-desc > div.col-md-8.desc > div.small"
+    $(ratingEle).find('span').each(function(i, spanResult) {
+        if ($(spanResult).attr('class') === 'text-muted') {
+            return;
+        }
+        if (i === 0) {
+            var rating = $(this).text().toString().trim();
+            if (rating !== '') {
+                novel.rating = rating;
+            }
+        } else if (i === 2) {
+            var views = $(this).text().toString().trim();
+            if (views !== '') {
+                novel.views = views;
+            }
+        }
+    });
+
+    // novel.chapters = this.parse_novel_chapter_list(identifier, 1, html);
 
     return novel;
 };
@@ -212,39 +235,30 @@ nrUtility.parse_novel_chapter_list = function (identifier, page, html) {
     pagination.chapters = [];
 
     // Novel Page Count 
-    var pageDataCountEle = "#list-chapter > ul.pagination-sm > li.last > a"
-    var pageCount = $(pageDataCountEle).attr('data-page');
-    if (pageCount !== null && pageCount !== undefined) {
-        pagination.pageCount = parseInt(pageCount, 10);
-    }
-
-    var pageCurrentEle = "#list-chapter > ul.pagination-sm > li.active > a"
-    var currentPage = $(pageCurrentEle).attr('data-page');
-    if (currentPage !== null && currentPage !== undefined) {
-        pagination.currentPage = parseInt(currentPage, 10) + 1;
-    }
+    var novelEle = "select.chapter_jump > option"
+    pagination.pageCount = $(novelEle).length;
+    pagination.currentPage = 1
 
     // Novel Chapters
-    var chapterEle = '#list-chapter > div.row > div > ul.list-chapter > li'
-    $(chapterEle).each(function (i, novelElement) {
-        $(novelElement).children().filter(function(i, liResult) {
-            var hrefValue = $(this).attr('href');
-                if (hrefValue !== undefined && hrefValue !== null && hrefValue !== '') {
-                    var object = new nrUtility.novelObject();
-                    //Chapter URL
-                    object.identifier = encode(hrefValue);
-                    // //Chapter Name
-                    object.name = $(this).text().toString();
-                    // Parse chapter index from name, e.g., "Chapter 17 - ..."
-                    var match = object.name.match(/Chapter\s+(\d+)/i);
-                    if (match && match[1]) {
-                        object.index = parseInt(match[1], 10); // index as integer from chapter name
-                    } else {
-                        object.index = 0; // fallback
-                    }
-                    pagination.chapters.push(object);
-                }
-        });
+    $(novelEle).each(function (i, liResult) {
+        var hrefValue = $(this).attr('value');
+        if (hrefValue === undefined || hrefValue === null || hrefValue === '') {
+            return;
+        }
+        var object = new nrUtility.novelObject();
+        //Chapter URL
+        object.identifier = encode(hrefValue);
+        object.index = i + 1;
+        //Chapter Name
+        var name = $(this).text().toString();
+        object.name = name.replace(/^\s*Chapter\s*\d+\s*[:-]?\s*/i, '').trim();
+        pagination.chapters.push(object);
+        // Parse chapter index from name, e.g., "Chapter 17 - ..."
+        // var match = name.match(/Chapter\s+(\d+)/i);
+        // if (match && match[1]) {
+        //     object.index = parseInt(match[1], 10); // index as integer from chapter name
+        // }
+        
     });
 
     return pagination;

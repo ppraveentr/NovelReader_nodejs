@@ -37,9 +37,9 @@ onUtility.on_fetchTopNovelList = function (query, next) {
     fetchNovelList(nrUtility.on_topList, query, next);
 };
 
-onUtility.on_fetchNovelDetails = function (identifie, query, next) {
+onUtility.on_fetchNovelDetails = function (identifier, query, next) {
 
-    var url = nrUtility.novelDetails + nrUtility.decode(identifie);
+    var url = nrUtility.on_baseURL + nrUtility.decode(identifier);
     var requestBody = nrUtility.getRequest(url, query)
 
     nrUtility.nr_novelListRequest.get(requestBody, function (error, response, body) {
@@ -61,9 +61,9 @@ onUtility.on_fetchNovelDetails = function (identifie, query, next) {
     });
 };
 
-onUtility.on_fetchChapterList = function (identifie, query, next) {
+onUtility.on_fetchChapterList = function (identifier, query, next) {
 
-    var url = nrUtility.novelDetails + nrUtility.decode(identifie);
+    var url = nrUtility.on_baseURL + nrUtility.decode(identifier);
     var requestBody = nrUtility.getRequest(url, query)
     var page = query.page;
 

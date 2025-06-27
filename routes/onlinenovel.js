@@ -53,7 +53,7 @@ router.get('/chapter-list/:id?/:page?', function(req, res) {
     if (page !== undefined && page !== null) {
         query.page = page;
     }
-    utility.on_fetchChapterList(identifier, page, function(chapterList) {
+    utility.on_fetchChapterList(identifier, query, function(chapterList) {
         res.json(chapterList);
         res.end();
     });
