@@ -1,5 +1,5 @@
 var domParser = require('cheerio');
-var request = require('request');
+var axios = require('axios');
 var qs = require('querystring');
 
 var nrUtility = {};
@@ -60,8 +60,8 @@ nrUtility.decode = function (string) {
 };
 
 // default 'request'
-nrUtility.nr_novelListRequest = request.defaults({
-    method : 'GET',
+nrUtility.nr_novelListRequest = axios.create({
+    method: 'GET',
     headers: {
         'content-type': 'text/html',
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/21A372 Safari/604.1'
@@ -77,8 +77,8 @@ nrUtility.getRequest = function (url, query) {
 };
 
 // default 'request'
-nrUtility.nr_postRequest = request.defaults({
-    method : 'POST',
+nrUtility.nr_postRequest = axios.create({
+    method: 'POST',
     headers: {
         "content-type": "application/x-www-form-urlencoded",
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/21A372 Safari/604.1'

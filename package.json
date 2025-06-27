@@ -1,6 +1,6 @@
 {
   "name": "novelreader-nodejs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "This is a backend engine for novelreader mobile application. This is purerly for self learning.",
   "author": "Praveen Prabhakar",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "url": "https://github.com/ppraveentr/NovelReader_nodejs"
   },
   "engines": {
-    "node": "8.9.1"
+    "node": ">=18.0.0"
   },
   "private": true,
   "scripts": {
@@ -21,23 +21,23 @@
     "test": "jest"
   },
   "dependencies": {
-    "apicache": "^1.2.1",
-    "body-parser": "^1.20.3",
+    "apicache": "^1.6.3",
+    "body-parser": "^1.20.2",
     "cheerio": "^1.0.0-rc.12",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
     "express": "^4.19.2",
-    "express-session": "^1.15.6",
-    "google-auth-library": "^9.11.0",
-    "morgan": "~1.9.1",
-    "passport-google-oauth": "^1.0.0",
+    "express-session": "^1.18.0",
+    "google-auth-library": "^10.1.0",
+    "morgan": "^1.10.0",
+    "passport-google-oauth": "^2.0.0",
     "path": "^0.12.7",
-    "request": "^2.88.2",
+    "axios": "^1.6.8",
     "serve-favicon": "^2.5.0",
     "uid-safe": "^2.1.5"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "supertest": "^7.1.0"
+    "supertest": "^7.1.1"
   }
 }
